@@ -19,10 +19,14 @@ import { buscarPendentes } from "./services/telegram";
 const app = express();
 app.set("trust proxy", 1);
 
-const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  "https://localhost", // app nativo Android (Capacitor)
+  "capacitor://localhost", // app nativo iOS (Capacitor)
+];
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: allowedOrigins,
     credentials: true,
     optionsSuccessStatus: 200,
   }),

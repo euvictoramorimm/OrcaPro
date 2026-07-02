@@ -6,8 +6,14 @@ declare module "axios" {
   }
 }
 
+// Em produção (build do site e do app nativo), a API é o Render;
+// em desenvolvimento, o backend local — a menos que VITE_API_URL sobrescreva
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3333/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.PROD
+      ? "https://orcapro-api.onrender.com/api"
+      : "http://localhost:3333/api"),
   withCredentials: true,
 });
 
