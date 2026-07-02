@@ -116,11 +116,11 @@ e usa pelo navegador ou celular, sem instalar nada.
 
 ## 📊 Diferenciais
 
-| Concorrentes | OrçaPro |
-| --- | --- |
-| Genéricos (qualquer setor) | Feito **para marcenaria** |
-| Só orçamento | Orçamento → contrato → produção → financeiro |
-| Caros e complexos | Simples, em português, preço acessível |
+| Concorrentes               | OrçaPro                                      |
+| -------------------------- | -------------------------------------------- |
+| Genéricos (qualquer setor) | Feito **para marcenaria**                    |
+| Só orçamento               | Orçamento → contrato → produção → financeiro |
+| Caros e complexos          | Simples, em português, preço acessível       |
 
 </div>
 </div>
@@ -322,8 +322,8 @@ Cada marcenaria só enxerga os próprios dados:
 ```typescript
 // TODA query filtra pelo tenant
 const orcamentos = await prisma.orcamento.findMany({
-  where: { userId: req.userId } // 🔒
-})
+  where: { userId: req.userId }, // 🔒
+});
 ```
 
 - Validação cross-tenant testada automaticamente
