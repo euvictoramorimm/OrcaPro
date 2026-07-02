@@ -94,6 +94,7 @@ npm run build        # gera versão de produção
 - Estoque de materiais com alertas de nível baixo
 - Financeiro: contas a receber + rentabilidade por projeto
 - Ordem de Produção no Dashboard + página imprimível
+- Plano de Corte: motor de nesting, otimização de chapas, fita de borda, configuração da marcenaria e relatório de peças imprimível
 - PWA, Audit Log, TypeScript completo (front + back)
 
 ---
@@ -104,8 +105,6 @@ npm run build        # gera versão de produção
 
 ### Próximas prioridades
 
-- [ ] Ordem de produção em 1 clique (criação automática ao aprovar + botão no Kanban)
-- [ ] Métricas do funil de vendas (conversão, valor médio, perdidos no mês)
 - [ ] Fluxo de caixa (projeção 30/60/90 dias)
 - [ ] WhatsApp via EvolutionAPI (substituir Telegram)
 - [ ] Assinatura digital do contrato (ClickSign ou DocuSign)
