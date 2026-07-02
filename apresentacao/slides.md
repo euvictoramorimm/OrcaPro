@@ -1,14 +1,16 @@
 ---
 theme: seriph
 background: https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=1920
-title: OrçaPro — Gestão Inteligente para Marcenarias
-info: Apresentação TCC — OrçaPro TI23
+title: OrçaPro - Gestão Inteligente para Marcenarias
+info: Apresentação TCC - OrçaPro TI23
 class: text-center
 highlighter: shiki
 drawings:
   persist: false
 transition: slide-left
 mdc: true
+presenter: dev
+contextMenu: dev
 ---
 
 # OrçaPro
@@ -16,17 +18,17 @@ mdc: true
 ## Gestão Inteligente para Marcenarias
 
 <div class="pt-8 text-xl opacity-80">
-Do orçamento ao contrato assinado — em minutos, não em dias
+Do orçamento ao contrato assinado em minutos, não em dias
 </div>
 
 <div class="pt-12 text-sm opacity-60">
-[NOME 1] · [NOME 2] · Victor de Amorim Rodrigues
+Kevin Rhoden · Daniel Cousseau · Victor de Amorim Rodrigues
 <br>
 Turma TI23
 </div>
 
 <!--
-BLOCO 1 — APRESENTADOR 1 (~5 min)
+BLOCO 1 - KEVIN (~5 min)
 Abertura: cumprimentar a banca, apresentar o grupo, dizer o nome do projeto.
 "Hoje vamos apresentar o OrçaPro, um sistema que resolve um problema real
 de um mercado de mais de 300 mil marcenarias no Brasil."
@@ -41,26 +43,23 @@ class: text-center
 
 <div class="grid grid-cols-3 gap-8 pt-10">
 <div class="p-6 rounded-xl bg-red-500 bg-opacity-10">
-  <div class="text-4xl pb-2">📝</div>
   <h3>Orçamentos no papel</h3>
-  <p class="text-sm opacity-70">Marceneiro calcula material, mão de obra e margem à mão — erra e perde dinheiro</p>
+  <p class="text-sm opacity-70 pt-2">O marceneiro calcula material, mão de obra e margem à mão. Quando erra, o prejuízo é dele.</p>
 </div>
 <div class="p-6 rounded-xl bg-red-500 bg-opacity-10">
-  <div class="text-4xl pb-2">⏱️</div>
   <h3>Dias para responder</h3>
-  <p class="text-sm opacity-70">Cliente espera dias pelo orçamento e fecha com o concorrente mais rápido</p>
+  <p class="text-sm opacity-70 pt-2">O cliente espera dias pelo orçamento e acaba fechando com o concorrente mais rápido.</p>
 </div>
 <div class="p-6 rounded-xl bg-red-500 bg-opacity-10">
-  <div class="text-4xl pb-2">📉</div>
-  <h3>Zero controle</h3>
-  <p class="text-sm opacity-70">Não sabe quais projetos dão lucro, quanto tem a receber, nem onde perde cliente</p>
+  <h3>Falta de controle</h3>
+  <p class="text-sm opacity-70 pt-2">Sem saber quais projetos dão lucro, quanto tem a receber, nem onde perde cliente.</p>
 </div>
 </div>
 
 <!--
 Contar uma história: "Imaginem o seu Zé, marceneiro há 20 anos. Ele faz móveis
 incríveis, mas perde clientes porque demora 3 dias para entregar um orçamento
-feito à mão — e quando entrega, às vezes errou a conta e trabalha no prejuízo."
+feito à mão. E quando entrega, às vezes errou a conta e trabalha no prejuízo."
 Dados de mercado: setor moveleiro brasileiro fatura bilhões, mas é um dos
 menos digitalizados.
 -->
@@ -99,27 +98,27 @@ e usa pelo navegador ou celular, sem instalar nada.
 <div class="grid grid-cols-2 gap-10 pt-4">
 <div>
 
-## 🎯 Público-alvo
+## Público-alvo
 
 - Marcenarias de pequeno e médio porte
 - Marceneiros autônomos
 - Movelarias sob medida
 
-## 💰 Modelo de negócio
+## Modelo de negócio
 
 - **SaaS por assinatura mensal**
-- Multi-tenant: um sistema, várias marcenarias, dados 100% isolados
-- Acesso via navegador e celular (PWA — funciona como app)
+- Multi-tenant: um sistema, várias marcenarias, dados totalmente isolados
+- Acesso via navegador e celular (PWA, funciona como aplicativo)
 
 </div>
 <div>
 
-## 📊 Diferenciais
+## Diferenciais
 
 | Concorrentes               | OrçaPro                                      |
 | -------------------------- | -------------------------------------------- |
 | Genéricos (qualquer setor) | Feito **para marcenaria**                    |
-| Só orçamento               | Orçamento → contrato → produção → financeiro |
+| Só orçamento               | Orçamento, contrato, produção e financeiro   |
 | Caros e complexos          | Simples, em português, preço acessível       |
 
 </div>
@@ -127,7 +126,7 @@ e usa pelo navegador ou celular, sem instalar nada.
 
 <!--
 BLOCO 1 fecha aqui. Transição: "E como isso funciona na prática?
-O [NOME 2] vai mostrar o sistema para vocês."
+O Daniel vai mostrar o sistema para vocês."
 -->
 
 ---
@@ -137,7 +136,7 @@ layout: section
 # O Produto em Ação
 
 <!--
-BLOCO 2 — APRESENTADOR 2 (~5 min)
+BLOCO 2 - DANIEL (~5 min)
 Tour pelas telas com prints. Cada slide a seguir recebe um print real do sistema.
 -->
 
@@ -151,7 +150,7 @@ image: /prints/dashboard.png
 O centro de comando da marcenaria
 
 - Visão geral do mês: orçamentos, aprovações, faturamento
-- Gráficos de desempenho (Chart.js)
+- Gráficos de desempenho
 - Alertas de estoque baixo
 - Ordens de produção em andamento
 
@@ -169,9 +168,9 @@ image: /prints/novo-orcamento.png
 De 3 dias para 5 minutos
 
 - Materiais com preço atualizado do estoque
-- Mão de obra + margem de lucro calculadas automaticamente
+- Mão de obra e margem de lucro calculadas automaticamente
 - Plano de corte de peças integrado
-- Erro de cálculo: **zero**
+- Sem erro de cálculo
 
 <!--
 Ponto comercial forte: "o sistema garante que o marceneiro nunca mais
@@ -231,13 +230,13 @@ image: /prints/financeiro.png
 O dinheiro sob controle
 
 - Contas a receber por projeto
-- Rentabilidade real: quanto **lucrou** em cada móvel
+- Rentabilidade real: quanto lucrou em cada móvel
 - Ordem de produção imprimível para a oficina
 - Estoque com alerta de nível baixo
 
 <!--
 BLOCO 2 fecha aqui. Transição: "Tudo isso que vocês viram roda em uma
-arquitetura profissional de verdade, em produção. O [NOME 3] vai mostrar
+arquitetura profissional de verdade, em produção. O Victor vai mostrar
 como construímos."
 -->
 
@@ -248,7 +247,7 @@ layout: section
 # Por Dentro da Máquina
 
 <!--
-BLOCO 3 — APRESENTADOR 3 (~4 min + 1 min de conclusão)
+BLOCO 3 - VICTOR (~4 min + 1 min de conclusão)
 Parte técnica: arquitetura, segurança, qualidade. É o que os professores avaliam.
 -->
 
@@ -261,7 +260,7 @@ Parte técnica: arquitetura, segurança, qualidade. É o que os professores aval
 ```mermaid {scale: 0.75}
 graph TB
     subgraph Usuário
-        A[📱 PWA / Navegador]
+        A[PWA / Navegador]
     end
     subgraph "Vercel"
         B[Frontend<br>React 18 + Vite + TypeScript]
@@ -294,36 +293,36 @@ na nuvem. Tudo tipado com TypeScript de ponta a ponta."
 
 ---
 
-# Segurança: prioridade nº 1
+# Segurança em primeiro lugar
 
 <div class="grid grid-cols-2 gap-8 pt-4">
 <div>
 
-## 🔐 Autenticação
+## Autenticação
 
-- JWT em cookie httpOnly + refresh tokens
+- JWT em cookie httpOnly com refresh tokens
 - Sessão de 15 min renovada automaticamente
 - Recuperação de senha por e-mail
 - Cloudflare Turnstile contra robôs no cadastro
 
-## 🛡️ Proteções
+## Proteções
 
 - Rate limit: bloqueio após 10 tentativas de login
-- Helmet.js + Content Security Policy
+- Helmet.js e Content Security Policy
 - Validação de toda entrada com Zod
 
 </div>
 <div>
 
-## 🏢 Isolamento multi-tenant
+## Isolamento multi-tenant
 
 Cada marcenaria só enxerga os próprios dados:
 
 ```typescript
 // TODA query filtra pelo tenant
 const orcamentos = await prisma.orcamento.findMany({
-  where: { userId: req.userId }, // 🔒
-});
+  where: { userId: req.userId }
+})
 ```
 
 - Validação cross-tenant testada automaticamente
@@ -334,7 +333,7 @@ const orcamentos = await prisma.orcamento.findMany({
 
 <!--
 Ponto forte para professores: "escrevemos testes que tentam acessar dados
-de outra marcenaria de propósito — e comprovam que o sistema bloqueia".
+de outra marcenaria de propósito, e eles comprovam que o sistema bloqueia".
 -->
 
 ---
@@ -344,27 +343,27 @@ de outra marcenaria de propósito — e comprovam que o sistema bloqueia".
 <div class="grid grid-cols-2 gap-8 pt-4">
 <div>
 
-## ✅ Qualidade
+## Qualidade
 
 - Testes automatizados (Jest + Supertest) contra banco real
 - TypeScript estrito no front e no back
 - CI/CD: cada push valida tipos e testes
 
-## 📦 Escala do projeto
+## Escala do projeto
 
 - 20 telas no frontend
-- 7 controllers, +40 endpoints na API
+- 7 controllers e mais de 40 endpoints na API
 - 5 migrações de banco versionadas
 
 </div>
 <div>
 
-## 🧗 Desafios reais que resolvemos
+## Desafios reais que resolvemos
 
-- **Safari bloqueia cookies cross-domain** → token em memória + refresh no localStorage
-- **Servidor bloqueia porta de e-mail** → migração de SMTP para API HTTP
-- **PDF no celular** → geração no navegador com html2pdf.js
-- **Banco serverless** → connection pooling do Neon.tech
+- **Safari bloqueia cookies cross-domain**: token em memória e refresh no localStorage
+- **Servidor bloqueia porta de e-mail**: migramos de SMTP para API HTTP
+- **PDF no celular**: geração no navegador com html2pdf.js
+- **Banco serverless**: connection pooling do Neon.tech
 
 </div>
 </div>
@@ -383,16 +382,16 @@ class: text-center
 
 <div class="grid grid-cols-4 gap-4 pt-8 text-sm">
 <div class="p-4 rounded-xl bg-blue-500 bg-opacity-10">
-💳<br><b>Assinaturas</b><br>Pagar.me: Pix, boleto e cartão
+<b>Assinaturas</b><br>Pagar.me: Pix, boleto e cartão
 </div>
 <div class="p-4 rounded-xl bg-blue-500 bg-opacity-10">
-💬<br><b>WhatsApp nativo</b><br>Notificações via EvolutionAPI
+<b>WhatsApp nativo</b><br>Notificações via EvolutionAPI
 </div>
 <div class="p-4 rounded-xl bg-blue-500 bg-opacity-10">
-✍️<br><b>Assinatura digital</b><br>Contratos com validade jurídica
+<b>Assinatura digital</b><br>Contratos com validade jurídica
 </div>
 <div class="p-4 rounded-xl bg-blue-500 bg-opacity-10">
-📈<br><b>Fluxo de caixa</b><br>Projeção 30/60/90 dias
+<b>Fluxo de caixa</b><br>Projeção 30/60/90 dias
 </div>
 </div>
 
@@ -408,15 +407,15 @@ class: text-center
 # Obrigado!
 
 <div class="text-xl pt-4 opacity-80">
-OrçaPro — do orçamento ao contrato assinado
+OrçaPro: do orçamento ao contrato assinado
 </div>
 
 <div class="pt-8">
-🌐 <b>orca-pro-seven.vercel.app</b>
+<b>orca-pro-seven.vercel.app</b>
 </div>
 
 <div class="pt-10 text-sm opacity-60">
-[NOME 1] · [NOME 2] · Victor de Amorim Rodrigues — TI23
+Kevin Rhoden · Daniel Cousseau · Victor de Amorim Rodrigues - TI23
 </div>
 
 <div class="pt-6 text-lg">
@@ -425,6 +424,6 @@ Perguntas?
 
 <!--
 Encerramento: agradecer a banca, se colocar à disposição para perguntas.
-Combinar antes quem responde o quê: comercial → apresentador 1,
-produto → apresentador 2, técnico → apresentador 3.
+Combinar antes quem responde o quê: comercial com Kevin,
+produto com Daniel, técnico com Victor.
 -->
