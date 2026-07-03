@@ -46,6 +46,33 @@ export async function notificarMudancaStatus(
   await enviarMensagem(cliente.telegramChatId, mensagem(tituloOrcamento));
 }
 
+export async function enviarDocumento(
+  chatId: string,
+  arquivo: Buffer,
+  nomeArquivo: string,
+  legenda: string,
+): Promise<boolean> {
+  if (!process.env.TELEGRAM_BOT_TOKEN) return false;
+  const form = new FormData();
+  form.append("chat_id", chatId);
+  form.append("caption", legenda);
+  form.append("parse_mode", "Markdown");
+  form.append(
+    "document",
+    new Blob([new Uint8Array(arquivo)], { type: "application/pdf" }),
+    nomeArquivo,
+  );
+  const res = await fetch(`${TELEGRAM_API}/sendDocument`, {
+    method: "POST",
+    body: form,
+  });
+  if (!res.ok) {
+    const erro = await res.text();
+    console.error("Erro do Telegram ao enviar documento:", erro);
+  }
+  return res.ok;
+}
+
 export async function buscarPendentes(): Promise<TelegramUpdate[]> {
   if (!process.env.TELEGRAM_BOT_TOKEN) return [];
   const res = await fetch(`${TELEGRAM_API}/getUpdates`);

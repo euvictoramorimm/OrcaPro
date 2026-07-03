@@ -6,7 +6,10 @@ import path from "path";
 import fs from "fs";
 import prisma = require("../lib/prisma");
 import { registrar } from "../services/audit";
-import { notificarMudancaStatus } from "../services/telegram";
+import {
+  notificarMudancaStatus,
+  enviarDocumento,
+} from "../services/telegram";
 
 const formatarMoedaBR = (valor: unknown): string =>
   Number(valor || 0).toLocaleString("pt-BR", {
@@ -581,6 +584,89 @@ export default {
       res
         .status(500)
         .json({ error: "Erro ao gerar link de compartilhamento." });
+    }
+  },
+
+  async enviarPdfTelegram(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const pdf = req.body as Buffer;
+
+      if (!Buffer.isBuffer(pdf) || pdf.length === 0) {
+        res.status(400).json({ error: "Arquivo PDF não recebido." });
+        return;
+      }
+
+      const jwtSecret = process.env.JWT_SECRET;
+      if (!jwtSecret) {
+        res
+          .status(500)
+          .json({ error: "Erro interno de configuração de segurança." });
+        return;
+      }
+
+      const [orcamento, todos, usuario] = await Promise.all([
+        prisma.orcamento.findFirst({
+          where: { id: Number(id), userId: req.userId },
+          include: {
+            cliente: { select: { nome: true, telegramChatId: true } },
+          },
+        }),
+        prisma.orcamento.findMany({
+          where: { userId: req.userId },
+          select: { id: true, createdAt: true },
+          orderBy: { createdAt: "asc" },
+        }),
+        prisma.user.findUnique({
+          where: { id: req.userId },
+          select: { nomeMarcenaria: true },
+        }),
+      ]);
+
+      if (!orcamento) {
+        res.status(404).json({ error: "Orçamento não encontrado." });
+        return;
+      }
+      if (!orcamento.cliente?.telegramChatId) {
+        res.status(400).json({
+          error:
+            "Este cliente ainda não conectou o Telegram. Conecte na tela de Clientes.",
+        });
+        return;
+      }
+
+      const posicao = todos.findIndex((o) => o.id === Number(id));
+      const numeroLocal = posicao !== -1 ? posicao + 1 : Number(id);
+      const nomeArquivo = `Orcamento_${numeroLocal}_${orcamento.cliente.nome.replace(/\s+/g, "_")}.pdf`;
+
+      const token = jwt.sign({ orcamentoId: Number(id) }, jwtSecret, {
+        expiresIn: "7d",
+      });
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      const linkProposta = `${frontendUrl}/proposta/${token}`;
+
+      const identificacao = usuario?.nomeMarcenaria
+        ? `da *${usuario.nomeMarcenaria}*`
+        : "da Marcenaria";
+      const legenda = `📄 Olá, *${orcamento.cliente.nome.trim()}*!\n\nAqui é ${identificacao}. Finalizamos o seu orçamento para o projeto *${orcamento.titulo.trim()}* — o PDF completo está anexado.\n\nVocê também pode visualizar e aprovar online por este link exclusivo:\n${linkProposta}\n\nQualquer dúvida, estou à disposição!`;
+
+      const enviado = await enviarDocumento(
+        orcamento.cliente.telegramChatId,
+        pdf,
+        nomeArquivo,
+        legenda,
+      );
+      if (!enviado) {
+        res.status(502).json({
+          error: "O Telegram não aceitou o envio. Tente novamente.",
+        });
+        return;
+      }
+
+      res.json({ message: "Orçamento enviado no Telegram do cliente." });
+    } catch (error) {
+      console.error("Erro ao enviar PDF pelo Telegram:", error);
+      res.status(500).json({ error: "Erro ao enviar o PDF pelo Telegram." });
     }
   },
 
