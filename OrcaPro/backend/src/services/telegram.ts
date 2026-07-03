@@ -11,6 +11,12 @@ const MENSAGENS_STATUS: Record<string, (titulo: string) => string> = {
     `🎉 Seu projeto *${titulo}* foi entregue com sucesso! Obrigado pela confiança.`,
 };
 
+// Telegram (Markdown legado) quebra a mensagem inteira se um _, *, ` ou [
+// interpolado ficar sem par — escapar todo texto vindo do usuário
+export function escaparMarkdown(texto: string): string {
+  return texto.replace(/[_*`[]/g, "\\$&");
+}
+
 interface ClienteComTelegram {
   telegramChatId?: string | null;
 }
@@ -43,7 +49,10 @@ export async function notificarMudancaStatus(
   if (!cliente?.telegramChatId) return;
   const mensagem = MENSAGENS_STATUS[novoStatus];
   if (!mensagem) return;
-  await enviarMensagem(cliente.telegramChatId, mensagem(tituloOrcamento));
+  await enviarMensagem(
+    cliente.telegramChatId,
+    mensagem(escaparMarkdown(tituloOrcamento)),
+  );
 }
 
 export async function enviarDocumento(

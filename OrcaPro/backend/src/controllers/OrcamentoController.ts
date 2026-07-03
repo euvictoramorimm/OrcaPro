@@ -9,6 +9,7 @@ import { registrar } from "../services/audit";
 import {
   notificarMudancaStatus,
   enviarDocumento,
+  escaparMarkdown,
 } from "../services/telegram";
 
 const formatarMoedaBR = (valor: unknown): string =>
@@ -16,6 +17,23 @@ const formatarMoedaBR = (valor: unknown): string =>
     style: "currency",
     currency: "BRL",
   });
+
+// Número sequencial do orçamento dentro da conta do usuário (posição na
+// ordem de criação) — usado no nome do arquivo PDF
+async function calcularNumeroLocal(
+  userId: number,
+  orcamento: { id: number; createdAt: Date },
+): Promise<number> {
+  return prisma.orcamento.count({
+    where: {
+      userId,
+      OR: [
+        { createdAt: { lt: orcamento.createdAt } },
+        { createdAt: orcamento.createdAt, id: { lte: orcamento.id } },
+      ],
+    },
+  });
+}
 
 interface MatLineInput {
   id?: number;
@@ -605,17 +623,12 @@ export default {
         return;
       }
 
-      const [orcamento, todos, usuario] = await Promise.all([
+      const [orcamento, usuario] = await Promise.all([
         prisma.orcamento.findFirst({
           where: { id: Number(id), userId: req.userId },
           include: {
             cliente: { select: { nome: true, telegramChatId: true } },
           },
-        }),
-        prisma.orcamento.findMany({
-          where: { userId: req.userId },
-          select: { id: true, createdAt: true },
-          orderBy: { createdAt: "asc" },
         }),
         prisma.user.findUnique({
           where: { id: req.userId },
@@ -635,8 +648,7 @@ export default {
         return;
       }
 
-      const posicao = todos.findIndex((o) => o.id === Number(id));
-      const numeroLocal = posicao !== -1 ? posicao + 1 : Number(id);
+      const numeroLocal = await calcularNumeroLocal(req.userId!, orcamento);
       const nomeArquivo = `Orcamento_${numeroLocal}_${orcamento.cliente.nome.replace(/\s+/g, "_")}.pdf`;
 
       const token = jwt.sign({ orcamentoId: Number(id) }, jwtSecret, {
@@ -645,10 +657,12 @@ export default {
       const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
       const linkProposta = `${frontendUrl}/proposta/${token}`;
 
+      const nomeCliente = escaparMarkdown(orcamento.cliente.nome.trim());
+      const tituloProjeto = escaparMarkdown(orcamento.titulo.trim());
       const identificacao = usuario?.nomeMarcenaria
-        ? `da *${usuario.nomeMarcenaria}*`
+        ? `da *${escaparMarkdown(usuario.nomeMarcenaria)}*`
         : "da Marcenaria";
-      const legenda = `📄 Olá, *${orcamento.cliente.nome.trim()}*!\n\nAqui é ${identificacao}. Finalizamos o seu orçamento para o projeto *${orcamento.titulo.trim()}* — o PDF completo está anexado.\n\nVocê também pode visualizar e aprovar online por este link exclusivo:\n${linkProposta}\n\nQualquer dúvida, estou à disposição!`;
+      const legenda = `📄 Olá, *${nomeCliente}*!\n\nAqui é ${identificacao}. Finalizamos o seu orçamento para o projeto *${tituloProjeto}* — o PDF completo está anexado.\n\nVocê também pode visualizar e aprovar online por este link exclusivo:\n${linkProposta}\n\nQualquer dúvida, estou à disposição!`;
 
       const enviado = await enviarDocumento(
         orcamento.cliente.telegramChatId,
@@ -663,6 +677,14 @@ export default {
         return;
       }
 
+      await registrar(
+        req.userId!,
+        "enviou por Telegram",
+        "Orçamento",
+        orcamento.id,
+        orcamento.titulo,
+      );
+
       res.json({ message: "Orçamento enviado no Telegram do cliente." });
     } catch (error) {
       console.error("Erro ao enviar PDF pelo Telegram:", error);
@@ -674,25 +696,17 @@ export default {
     try {
       const { id } = req.params;
 
-      const [orcamento, todos] = await Promise.all([
-        prisma.orcamento.findFirst({
-          where: { id: Number(id), userId: req.userId },
-          include: { cliente: true },
-        }),
-        prisma.orcamento.findMany({
-          where: { userId: req.userId },
-          select: { id: true, createdAt: true },
-          orderBy: { createdAt: "asc" },
-        }),
-      ]);
+      const orcamento = await prisma.orcamento.findFirst({
+        where: { id: Number(id), userId: req.userId },
+        include: { cliente: true },
+      });
 
       if (!orcamento) {
         res.status(404).json({ error: "Orçamento não encontrado." });
         return;
       }
 
-      const posicao = todos.findIndex((o) => o.id === Number(id));
-      const numeroLocal = posicao !== -1 ? posicao + 1 : Number(id);
+      const numeroLocal = await calcularNumeroLocal(req.userId!, orcamento);
       const nomeArquivo = `Orcamento_${numeroLocal}_${orcamento.cliente.nome.replace(/\s+/g, "_")}.pdf`;
 
       const pdfBuffer = await new Promise<Buffer>((resolve, reject) => {
