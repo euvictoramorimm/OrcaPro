@@ -52,7 +52,11 @@ class: text-center
 
 # O Problema
 
-<div class="grid grid-cols-3 gap-8 pt-10">
+<div class="text-xl opacity-80 pt-3">
+Mais de <b>300 mil marcenarias</b> no Brasil — um dos setores <b>menos digitalizados</b> do país
+</div>
+
+<div class="grid grid-cols-3 gap-8 pt-8">
 <v-clicks>
 <div class="glass p-6">
   <h3>Orçamentos no papel</h3>
@@ -86,19 +90,24 @@ transition: fade
 
 # A Solução
 
-<div class="text-2xl pt-4 pb-8 opacity-90">
+<div class="text-2xl pt-4 pb-10 opacity-90">
 Um sistema completo que acompanha a marcenaria<br>
 <b>do primeiro contato ao dinheiro no bolso</b>
 </div>
 
-```mermaid {scale: 0.8}
-graph LR
-    A[Cliente pede<br>orçamento] --> B[Orçamento em<br>minutos com<br>preço certo]
-    B --> C[Proposta em PDF<br>via WhatsApp]
-    C --> D[Contrato assinado<br>online]
-    D --> E[Ordem de<br>produção]
-    E --> F[Financeiro:<br>contas a receber<br>+ lucro real]
-```
+<div class="pipe">
+  <div class="pipe-step">Cliente pede<br>orçamento</div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step">Orçamento em minutos<br>com preço certo</div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step">Proposta em PDF<br>via WhatsApp</div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step">Contrato assinado<br>online</div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step">Ordem de<br>produção</div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step pipe-step--end">Financeiro<br>contas a receber<br>+ lucro real</div>
+</div>
 
 <!--
 Frase de efeito: "O OrçaPro transforma o caderninho do marceneiro em uma
@@ -165,124 +174,111 @@ Tour pelas telas. Os placeholders serão trocados pelos prints reais do sistema.
 -->
 
 ---
-layout: image-right
-image: /prints/dashboard.svg
+class: print-slide
 ---
 
 # Dashboard
 
-O centro de comando da marcenaria
+<div class="print-sub">O centro de comando da marcenaria</div>
 
-<v-clicks>
-
-- Visão geral do mês: orçamentos, aprovações, faturamento
-- Gráficos de desempenho
-- Alertas de estoque baixo
-- Ordens de produção em andamento
-
-</v-clicks>
+<div class="print-shot">
+  <img src="/prints/dashboard.png" alt="Dashboard do OrçaPro">
+</div>
 
 <!--
 "Assim que o marceneiro faz login, ele vê a saúde do negócio em uma tela."
+Falar de cabeça: visão geral do mês, gráficos de desempenho, alertas de
+estoque baixo e ordens de produção em andamento.
 -->
 
 ---
-layout: image-right
-image: /prints/novo-orcamento.svg
+class: print-slide
 ---
 
 # Orçamento Inteligente
 
-De 3 dias para 5 minutos
+<div class="print-sub">De 3 dias para 5 minutos</div>
 
-<v-clicks>
-
-- Materiais com preço atualizado do estoque
-- Mão de obra e margem de lucro calculadas automaticamente
-- Plano de corte de peças integrado
-- Sem erro de cálculo
-
-</v-clicks>
+<div class="print-shot">
+  <img src="/prints/novo-orcamento.png" alt="Novo orçamento no OrçaPro">
+</div>
 
 <!--
 Ponto comercial forte: "o sistema garante que o marceneiro nunca mais
 venda no prejuízo, porque a margem está embutida no cálculo".
+Falar de cabeça: preço atualizado do estoque, mão de obra e margem
+automáticas, plano de corte integrado, sem erro de cálculo.
 -->
 
 ---
-layout: image-right
-image: /prints/proposta.svg
+class: print-slide
 ---
 
 # Proposta Profissional
 
-A cara da marcenaria, não do papel de pão
+<div class="print-sub">A cara da marcenaria, não do papel de pão</div>
 
-<v-clicks>
-
-- PDF com a logo da marcenaria
-- Envio direto por WhatsApp
-- Cliente aprova online
-
-</v-clicks>
+<div class="print-shot">
+  <img src="/prints/proposta.png" alt="Proposta em PDF do OrçaPro">
+</div>
 
 <!--
 Mostrar antes/depois se possível: orçamento à mão vs PDF do OrçaPro.
+Falar de cabeça: PDF com a logo da marcenaria, envio direto por WhatsApp,
+cliente aprova online.
 -->
 
 ---
-layout: image-right
-image: /prints/contrato.svg
+class: print-slide
 ---
 
 # Contrato Automático
 
-Aprovou? Contrato pronto na hora
+<div class="print-sub">Aprovou? Contrato pronto na hora</div>
 
-<v-clicks>
+<div class="print-shot">
+  <img src="/prints/contrato.png" alt="Contrato automático do OrçaPro">
+</div>
 
-- Gerado automaticamente ao aprovar o orçamento
-- Cliente assina online por um link único e seguro
-- Sem papel, sem cartório, sem espera
-
-</v-clicks>
+<!--
+Falar de cabeça: gerado automaticamente ao aprovar o orçamento, cliente
+assina online por um link único e seguro, sem papel, sem cartório, sem espera.
+-->
 
 ---
-layout: image-right
-image: /prints/kanban.svg
+class: print-slide
 ---
 
 # Kanban de Projetos
 
-Nenhum projeto esquecido
+<div class="print-sub">Nenhum projeto esquecido</div>
 
-<v-clicks>
+<div class="print-shot">
+  <img src="/prints/kanban.png" alt="Kanban de projetos do OrçaPro">
+</div>
 
-- Arrastar e soltar entre etapas
-- Notificações automáticas no Telegram
-- Funil de vendas visível: do contato ao entregue
-
-</v-clicks>
+<!--
+Falar de cabeça: arrastar e soltar entre etapas, notificações automáticas
+no Telegram, funil de vendas visível do contato ao entregue.
+-->
 
 ---
-layout: image-right
-image: /prints/financeiro.svg
+class: print-slide
 ---
 
 # Financeiro e Produção
 
-O dinheiro sob controle
+<div class="print-sub">O dinheiro sob controle</div>
 
-<v-clicks>
-
-- Contas a receber por projeto
-- Rentabilidade real: quanto lucrou em cada móvel
-- Ordem de produção imprimível para a oficina
-- Estoque com alerta de nível baixo
-
-</v-clicks>
+<div class="print-shot">
+  <img src="/prints/financeiro.png" alt="Financeiro do OrçaPro">
+</div>
 
 <!--
+Falar de cabeça: contas a receber por projeto, rentabilidade real de cada
+móvel, ordem de produção imprimível para a oficina, estoque com alerta de
+nível baixo.
+
 BLOCO 2 fecha aqui. Transição: "Tudo isso que vocês viram roda em uma
 arquitetura profissional de verdade, em produção. O Victor vai mostrar
 como construímos."
@@ -304,33 +300,25 @@ Parte técnica: arquitetura, segurança, qualidade. É o que os professores aval
 
 # Arquitetura
 
-<div class="pt-4">
+<div class="pt-10">
 
-```mermaid {scale: 0.55}
-graph LR
-    subgraph Usuário
-        A[PWA / Navegador]
-    end
-    subgraph "Vercel"
-        B[Frontend<br>React 18 + Vite + TypeScript]
-    end
-    subgraph "Render"
-        C[Backend<br>Node.js + Express 5 + TypeScript]
-        D[Prisma ORM]
-    end
-    subgraph "Neon.tech"
-        E[(PostgreSQL<br>serverless)]
-    end
-    A -->|HTTPS| B
-    B -->|API REST + JWT| C
-    C --> D --> E
-    C -.->|Notificações| F[Telegram Bot]
-    C -.->|E-mails| G[Brevo API]
-```
+<div class="pipe">
+  <div class="pipe-step"><b>Usuário</b><br><small>PWA / Navegador</small></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><b>Frontend</b><br><small>React 18 · Vite · TS</small><br><span class="arch-host">Vercel</span></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><b>Backend</b><br><small>Node · Express 5 · Prisma</small><br><span class="arch-host">Render</span></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-step"><b>PostgreSQL</b><br><small>serverless</small><br><span class="arch-host">Neon.tech</span></div>
+</div>
+
+<div class="arch-integr">
+Comunicação via <b>API REST + JWT</b> sobre HTTPS · Integrações: <b>Telegram</b> (notificações) e <b>Brevo</b> (e-mails)
+</div>
 
 </div>
 
-<div class="text-sm opacity-70 pt-2 text-center">
+<div class="text-sm opacity-70 pt-6 text-center">
 100% TypeScript · Deploy contínuo com GitHub Actions · Em produção real
 </div>
 
@@ -488,15 +476,22 @@ class: text-center
 OrçaPro: do orçamento ao contrato assinado
 </div>
 
-<div class="pt-8 text-lg">
+<div class="pt-6 text-lg">
 <b>orca-pro-seven.vercel.app</b>
 </div>
 
-<div class="pt-8 text-sm opacity-60">
+<div v-motion :initial="{ opacity: 0, scale: 0.9 }" :enter="{ opacity: 1, scale: 1, transition: { delay: 300, duration: 500 } }" class="bg-white rounded-2xl p-3 mt-4 shadow-2xl">
+  <img src="/qr-orcapro.svg" class="h-32 w-32" alt="QR Code do OrçaPro">
+</div>
+<div class="text-sm opacity-70 pt-2">
+Aponte a câmera do celular e teste o sistema agora
+</div>
+
+<div class="pt-5 text-sm opacity-60">
 Kevin Rhoden · Daniel Cousseau · Victor de Amorim Rodrigues - TI23
 </div>
 
-<div class="pt-6 text-lg">
+<div class="pt-4 text-lg">
 Perguntas?
 </div>
 
