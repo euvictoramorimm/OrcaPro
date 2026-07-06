@@ -583,7 +583,7 @@ export default function CortePecas() {
         </div>
 
         {/* Dimensões */}
-        <div style={grid3}>
+        <div className="grid-responsivo" style={grid3}>
           <CampoP label="Largura (mm)">
             <input
               type="number"
@@ -614,7 +614,7 @@ export default function CortePecas() {
         </div>
 
         {/* Tipo e cores */}
-        <div style={grid3}>
+        <div className="grid-responsivo" style={grid3}>
           <CampoP label="Tipo de Móvel">
             <select
               value={pi.tipoMovelIdx}
@@ -666,7 +666,7 @@ export default function CortePecas() {
         </div>
 
         {/* Opções */}
-        <div style={grid3}>
+        <div className="grid-responsivo" style={grid3}>
           <CampoP label="Tipo de Tampo">
             <select
               value={pi.tipoTampo}
@@ -805,6 +805,7 @@ export default function CortePecas() {
               </div>
 
               <div
+                className="grid-responsivo"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -872,6 +873,7 @@ export default function CortePecas() {
                 </CampoP>
               ) : (
                 <div
+                  className="grid-responsivo"
                   style={{
                     display: "grid",
                     gridTemplateColumns:
@@ -1044,6 +1046,7 @@ export default function CortePecas() {
             Escolha o ambiente e adicione ao projeto.
           </p>
           <div
+            className="grid-responsivo"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr auto",

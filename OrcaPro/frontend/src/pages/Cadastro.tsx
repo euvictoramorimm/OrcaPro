@@ -65,7 +65,9 @@ export default function Cadastro() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "80vh",
+        minHeight: "100dvh",
+        padding: "24px 16px",
+        boxSizing: "border-box",
       }}
     >
       <div

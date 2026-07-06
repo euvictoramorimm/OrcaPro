@@ -239,6 +239,66 @@ html {
   z-index: 100;
 }
 
+/* Botão hambúrguer, botão de fechar e fundo escuro:
+   aparecem só no celular (ativados nas media queries abaixo) */
+.menu-hamburguer,
+.menu-drawer-close,
+.menu-backdrop {
+  display: none;
+}
+
+.menu-hamburguer {
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.menu-hamburguer:hover {
+  background: rgba(0, 86, 163, 0.06);
+}
+
+.menu-drawer-close {
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+}
+.menu-drawer-close:hover {
+  background: rgba(0, 86, 163, 0.06);
+  color: var(--primary);
+}
+
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 39;
+  animation: fadeBackdrop 0.2s ease;
+}
+@keyframes fadeBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -656,29 +716,73 @@ input[type="number"] {
     position: sticky;
     top: 0;
     flex-direction: row;
-    padding: 6px 12px;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 8px 14px;
+    /* Empurra a barra pra baixo do relógio/bateria do celular (área segura) */
+    padding-top: calc(8px + env(safe-area-inset-top));
+    /* Mais opaca no celular pra o conteúdo não "vazar" por trás ao rolar */
+    background: rgba(255, 255, 255, 0.95);
     border-right: none;
     border-bottom: 1px solid var(--border);
     border-radius: 0;
   }
 
+  .menu-hamburguer {
+    display: flex;
+    order: 0;
+  }
+
   .menu-logo {
+    order: 1;
     border-bottom: none;
-    border-right: 1px solid var(--border);
-    padding: 0 14px 0 0;
+    border-right: none;
+    padding: 0;
     margin-bottom: 0;
   }
 
+  /* A lista de links vira um painel que desliza da esquerda */
   .menu-links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-top: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(82vw, 320px);
+    flex-direction: column;
+    flex-wrap: nowrap;
     gap: 4px;
+    padding: 14px;
+    padding-top: calc(14px + env(safe-area-inset-top));
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow-main);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+    z-index: 40;
+  }
+  .menu-links-aberto {
+    transform: translateX(0);
+  }
+
+  .menu-drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-backdrop {
+    display: block;
+  }
+
+  /* Dentro do painel, os links ficam maiores e fáceis de tocar */
+  .menu a {
+    padding: 13px 14px;
+    font-size: 0.95rem;
   }
 
   .menu-user {
+    order: 2;
     border-top: none;
     padding-top: 0;
     margin-top: 0;
@@ -718,30 +822,16 @@ input[type="number"] {
     font-size: 1.3rem;
   }
 
-  /* Menu mobile: logo pequena + links em scroll horizontal */
+  /* No celular pequeno: barra de topo mais compacta (os links viram painel) */
   .menu {
-    gap: 6px;
-    padding: 6px 10px;
+    gap: 8px;
+    padding: 8px 12px;
+    padding-top: calc(8px + env(safe-area-inset-top));
     top: 0;
   }
 
   .menu-user-name {
     display: none;
-  }
-  .menu-links {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .menu-links::-webkit-scrollbar {
-    display: none;
-  }
-  .menu a {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 6px 10px;
-    font-size: 0.82rem;
   }
 
   .container {
@@ -776,6 +866,12 @@ input[type="number"] {
     grid-template-columns: 1fr;
   }
 
+  /* Grades escritas direto no JSX (estilo inline) — força 1 coluna no celular.
+     Precisa de !important porque estilo inline tem prioridade sobre o CSS. */
+  .grid-responsivo {
+    grid-template-columns: 1fr !important;
+  }
+
   .input-group-flex {
     flex-direction: column;
   }
@@ -793,9 +889,6 @@ input[type="number"] {
   .menu-logo img {
     height: 32px;
     width: 32px;
-  }
-  .menu-logo-text {
-    display: none;
   }
 
   /* Modal não vaza a tela em celulares pequenos */
