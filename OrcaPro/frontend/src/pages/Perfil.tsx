@@ -349,6 +349,7 @@ export default function Perfil() {
       <h1 style={{ marginBottom: "30px" }}>Meu Perfil</h1>
 
       <div
+        className="grid-responsivo"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",

@@ -104,6 +104,8 @@ function BtnIcon({
         padding: 4,
         fontSize: 16,
         lineHeight: 1,
+        width: "auto",
+        flexShrink: 0,
       }}
     >
       ✕
@@ -671,6 +673,7 @@ function PassoChapas({
       )}
 
       <div
+        className="grid-responsivo"
         style={{
           display: "grid",
           gridTemplateColumns: "2fr 1fr 1fr auto",
@@ -1137,6 +1140,7 @@ function SettingsConfiguracao(props: SettingsProps) {
           </div>
         )}
         <div
+          className="grid-responsivo"
           style={{
             display: "grid",
             gridTemplateColumns: "2fr 1fr 1fr auto",
@@ -1209,6 +1213,7 @@ function SettingsConfiguracao(props: SettingsProps) {
           </div>
         )}
         <div
+          className="grid-responsivo"
           style={{
             display: "grid",
             gridTemplateColumns: "2fr 1fr 1fr auto",
@@ -1369,6 +1374,7 @@ function SettingsConfiguracao(props: SettingsProps) {
           </div>
         )}
         <div
+          className="grid-responsivo"
           style={{
             display: "grid",
             gridTemplateColumns: "2fr 1fr 1fr",
@@ -1461,6 +1467,7 @@ function SettingsConfiguracao(props: SettingsProps) {
           </div>
         )}
         <div
+          className="grid-responsivo"
           style={{
             display: "grid",
             gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
