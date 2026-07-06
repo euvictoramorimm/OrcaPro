@@ -244,8 +244,8 @@
   .shotslide .shothead .eyebrow { margin-bottom: 0.5rem; }
   .shotslide .shothead .title { font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.04; }
   .shot.shotbig { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; width: 100%; }
-  .shot.shotbig .frame { width: fit-content; max-width: 100%; margin: 0 auto; }
-  .shot.shotbig .frame-body { width: auto; height: min(62vh, calc((100vw - 9rem) * 9 / 16)); aspect-ratio: 16 / 9; }
+  .shot.shotbig .frame { height: 100%; width: auto; max-width: 100%; margin: 0 auto; aspect-ratio: 16 / 9.6; display: flex; flex-direction: column; }
+  .shot.shotbig .frame-body { flex: 1 1 auto; min-height: 0; width: 100%; height: auto; aspect-ratio: auto; }
   .ph {
     position: absolute; inset: 0; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 0.5rem; text-align: center;
