@@ -512,11 +512,26 @@ export default {
     try {
       const token = req.params.token as string;
 
+      // Rota pública: retorna somente o que a página do contrato exibe —
+      // nunca dados internos (lucro, mão de obra) nem cadastro completo do cliente
       const orcamento = await prisma.orcamento.findUnique({
         where: { contratoToken: token },
-        include: {
-          cliente: true,
-          materiais: true,
+        select: {
+          id: true,
+          titulo: true,
+          tipoMovel: true,
+          ambiente: true,
+          medidas: true,
+          prazo: true,
+          pagamento: true,
+          observacoes: true,
+          totalFinal: true,
+          contratoGeradoEm: true,
+          contratoAceito: true,
+          contratoAceitoEm: true,
+          cliente: {
+            select: { nome: true, telefone: true, email: true, cidade: true },
+          },
           user: { select: { nomeMarcenaria: true, logoMarcenaria: true } },
         },
       });
@@ -924,10 +939,22 @@ export default {
         orcamentoId: number;
       };
 
+      // Rota pública: retorna somente o que o DocumentoOrcamento (modo cliente)
+      // exibe — nunca lucro, mão de obra, contratoToken ou cadastro completo do cliente
       const orcamento = await prisma.orcamento.findUnique({
         where: { id: Number(decoded.orcamentoId) },
-        include: {
-          cliente: true,
+        select: {
+          id: true,
+          titulo: true,
+          tipoMovel: true,
+          ambiente: true,
+          prazo: true,
+          pagamento: true,
+          validade: true,
+          observacoes: true,
+          totalFinal: true,
+          createdAt: true,
+          cliente: { select: { nome: true, telefone: true, cidade: true } },
           user: { select: { nomeMarcenaria: true, logoMarcenaria: true } },
         },
       });
