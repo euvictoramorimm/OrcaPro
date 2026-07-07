@@ -745,6 +745,14 @@ input[type="number"] {
     padding: 0;
     margin-bottom: 0;
   }
+  /* Ao tocar/hover, as regras globais ".menu a:hover" e ".menu-logo:hover"
+     (transform: none) cancelavam a centralização e a logo pulava pra direita.
+     Seletor com especificidade maior mantém a logo parada no centro. */
+  .menu a.menu-logo:hover,
+  .menu a.menu-logo:active {
+    transform: translate(-50%, -50%);
+    background: transparent;
+  }
 
   /* A lista de links vira um painel que desliza da esquerda */
   .menu-links {
