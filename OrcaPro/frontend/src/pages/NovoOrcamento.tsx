@@ -397,7 +397,7 @@ export default function NovoOrcamento() {
                 color: "var(--text-main)",
               }}
             >
-              📐 Gerar as peças deste móvel
+              Gerar as peças deste móvel
             </div>
             <div
               style={{

@@ -504,7 +504,6 @@ export default function CortePecas() {
             color: "var(--text-soft)",
           }}
         >
-          ⚙{" "}
           <Link to="/marcenaria" style={{ color: "var(--primary)" }}>
             Configure sua marcenaria
           </Link>{" "}
@@ -1078,7 +1077,7 @@ export default function CortePecas() {
               onClick={adicionarAoProjeto}
               style={{ ...btnSuccess, height: 40 }}
             >
-              ➕ Adicionar ao Projeto
+              Adicionar ao Projeto
             </button>
           </div>
         </div>
@@ -1174,17 +1173,17 @@ export default function CortePecas() {
               disabled={gerandoPdf}
               style={{ ...btnPrimary, opacity: gerandoPdf ? 0.7 : 1 }}
             >
-              {gerandoPdf ? "Gerando..." : "📄 Baixar PDF (Relatório)"}
+              {gerandoPdf ? "Gerando..." : "Baixar PDF (Relatório)"}
             </button>
             <button
               type="button"
               onClick={imprimirRelatorio}
               style={btnOutline}
             >
-              🖨 Imprimir Relatório
+              Imprimir Relatório
             </button>
             <button type="button" onClick={gerarPlano} style={btnOutline}>
-              📐 {planoAberto ? "Atualizar" : "Ver"} Plano de Corte
+              {planoAberto ? "Atualizar" : "Ver"} Plano de Corte
             </button>
             {planoAberto && (
               <button
@@ -1193,12 +1192,12 @@ export default function CortePecas() {
                 disabled={gerandoPdf}
                 style={{ ...btnPrimary, opacity: gerandoPdf ? 0.7 : 1 }}
               >
-                {gerandoPdf ? "Gerando..." : "📄 Baixar PDF (Plano)"}
+                {gerandoPdf ? "Gerando..." : "Baixar PDF (Plano)"}
               </button>
             )}
             {planoAberto && (
               <button type="button" onClick={imprimirPlano} style={btnOutline}>
-                🖨 Imprimir Plano
+                Imprimir Plano
               </button>
             )}
             <button type="button" onClick={usarNoOrcamento} style={btnSuccess}>

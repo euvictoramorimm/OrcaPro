@@ -1079,7 +1079,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </div>
 
       {/* Configurações básicas */}
-      <SecaoCard titulo="⚙ Configurações Básicas">
+      <SecaoCard titulo="Configurações Básicas">
         <div
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}
         >
@@ -1122,7 +1122,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </SecaoCard>
 
       {/* Chapas */}
-      <SecaoCard titulo="🪵 Chapas de MDF">
+      <SecaoCard titulo="Chapas de MDF">
         {config.chapas.length > 0 && (
           <div style={{ marginBottom: 12 }}>
             {config.chapas.map((c) => (
@@ -1195,7 +1195,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </SecaoCard>
 
       {/* Fitas */}
-      <SecaoCard titulo="📏 Fitas de Borda">
+      <SecaoCard titulo="Fitas de Borda">
         {config.fitas.length > 0 && (
           <div style={{ marginBottom: 12 }}>
             {config.fitas.map((f) => (
@@ -1268,7 +1268,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </SecaoCard>
 
       {/* Tipos de Móvel */}
-      <SecaoCard titulo="🪑 Tipos de Móvel">
+      <SecaoCard titulo="Tipos de Móvel">
         {config.tiposMovel.length > 0 && (
           <div style={{ marginBottom: 12 }}>
             {config.tiposMovel.map((t) => (
@@ -1357,7 +1357,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </SecaoCard>
 
       {/* Corrediças */}
-      <SecaoCard titulo="🔧 Corrediças">
+      <SecaoCard titulo="Corrediças">
         {config.corredicas.length > 0 && (
           <div style={{ marginBottom: 12 }}>
             {config.corredicas.map((c) => (
@@ -1449,7 +1449,7 @@ function SettingsConfiguracao(props: SettingsProps) {
       </SecaoCard>
 
       {/* Ferragens */}
-      <SecaoCard titulo="🔩 Ferragens">
+      <SecaoCard titulo="Ferragens">
         {config.ferragens.length > 0 && (
           <div style={{ marginBottom: 12 }}>
             {config.ferragens.map((f) => (
