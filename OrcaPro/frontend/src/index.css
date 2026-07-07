@@ -733,8 +733,13 @@ input[type="number"] {
     order: 0;
   }
 
+  /* Logo centralizada no header do celular (hambúrguer à esquerda, avatar à direita) */
   .menu-logo {
     order: 1;
+    position: absolute;
+    left: 50%;
+    top: calc(50% + env(safe-area-inset-top) / 2);
+    transform: translate(-50%, -50%);
     border-bottom: none;
     border-right: none;
     padding: 0;
@@ -799,6 +804,8 @@ input[type="number"] {
 
   .app-main {
     margin-left: 0;
+    /* Impede que qualquer conteúdo largo gere rolagem horizontal no celular */
+    overflow-x: hidden;
   }
 
   .container {
@@ -952,6 +959,15 @@ input[type="number"] {
   .bento-span-2,
   .bento-span-3 {
     grid-column: span 1;
+  }
+  /* Números grandes (moeda) não podem vazar a largura da tela no celular.
+     Prefixo .bento-grid dá especificidade maior que a regra base .dashboard-card h2. */
+  .bento-grid .dashboard-card h2 {
+    font-size: 1.7rem;
+    overflow-wrap: anywhere;
+  }
+  .bento-grid .bento-card-featured h2 {
+    font-size: 2rem;
   }
 }
 

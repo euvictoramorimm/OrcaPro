@@ -20,6 +20,16 @@ export default function Menu({ user, avatarUrl, onLogout }: MenuProps) {
     setDrawerAberto(false);
   }, [location.pathname]);
 
+  // Fecha o menu deslizante com a tecla Esc
+  useEffect(() => {
+    if (!drawerAberto) return;
+    function handleEsc(event: KeyboardEvent) {
+      if (event.key === "Escape") setDrawerAberto(false);
+    }
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [drawerAberto]);
+
   const isActive = (path: string): string => {
     const active =
       location.pathname === path ||
