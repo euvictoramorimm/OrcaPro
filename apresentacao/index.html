@@ -188,19 +188,36 @@
   }
   ul.ticks li span { color: var(--muted); }
 
-  /* ---- Step flow (pipeline) ---- */
-  .flow { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 0.7rem; margin-top: clamp(2rem, 4.5vh, 3.4rem); }
+  /* ---- Step flow (jornada do primeiro contato ao dinheiro) ---- */
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: clamp(0.5rem, 0.8vw, 0.9rem); margin-top: clamp(2.4rem, 6vh, 4.2rem); width: 100%; }
   .flow-step {
-    flex: 1 1 0; min-width: 160px; max-width: 250px;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 16px; padding: 1.4rem 1.1rem; text-align: center;
-    display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;
+    position: relative;
+    flex: 1 1 0; min-width: 150px; max-width: 270px;
+    min-height: clamp(160px, 24vh, 230px);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--line);
+    border-radius: 18px; padding: clamp(1.3rem, 2.4vh, 2rem) 1.15rem; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem; justify-content: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
   }
-  .flow-step .n { font-family: var(--mono); font-size: 0.9rem; color: var(--blue); font-weight: 700; }
-  .flow-step .t { font-size: clamp(1.18rem, 1.5vw, 1.5rem); font-weight: 700; line-height: 1.2; }
-  .flow-step .s { font-size: clamp(0.98rem, 1.15vw, 1.18rem); color: var(--muted); line-height: 1.3; }
-  .flow-step.end { border-color: rgba(207, 138, 66, 0.6); background: var(--amber-soft); }
-  .flow-arrow { display: flex; align-items: center; color: var(--amber); font-weight: 800; font-size: 1.6rem; }
+  .flow-step .n {
+    display: flex; align-items: center; justify-content: center;
+    width: 3rem; height: 3rem; border-radius: 999px;
+    font-family: var(--mono); font-size: 1.15rem; font-weight: 700;
+    color: var(--amber); background: var(--amber-soft);
+    border: 1.5px solid rgba(207, 138, 66, 0.5);
+  }
+  .flow-step .t { font-size: clamp(1.24rem, 1.7vw, 1.65rem); font-weight: 700; line-height: 1.2; color: var(--ink); }
+  .flow-step .s { font-size: clamp(1rem, 1.2vw, 1.25rem); color: var(--muted); line-height: 1.35; }
+  .flow-step.end { border-color: rgba(207, 138, 66, 0.65); background: linear-gradient(180deg, var(--amber-soft), rgba(207, 138, 66, 0.05)); }
+  .flow-step.end .n { background: var(--amber); color: #16110d; border-color: var(--amber); }
+  .flow-arrow { display: flex; align-items: center; color: var(--amber); font-weight: 800; font-size: clamp(1.3rem, 1.6vw, 1.85rem); }
+  .solucao-tag {
+    margin: clamp(2rem, 5vh, 3.4rem) auto 0;
+    font-size: clamp(1.2rem, 1.6vw, 1.55rem); color: var(--muted); line-height: 1.5;
+    max-width: 72ch; padding: 1rem 1.7rem; border: 1px solid var(--line);
+    border-radius: 14px; background: rgba(255, 255, 255, 0.03);
+  }
 
   /* ---- Comparação ---- */
   .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
@@ -383,13 +400,13 @@
     <div class="reveal authors" style="margin-top:3rem">
       Kevin Rhoden &nbsp;·&nbsp; Daniel Cousseau &nbsp;·&nbsp; Victor de Amorim Rodrigues<br>Turma TI23
     </div>
-    <div class="pnote"><b>Bloco 1 · Kevin (~5 min).</b> Cumprimentar a banca, apresentar o grupo e o nome do projeto. "Hoje vamos apresentar o OrçaPro, um sistema que resolve um problema real de um mercado de mais de 300 mil marcenarias no Brasil."</div>
+    <div class="pnote"><b>Bloco 1 · Victor (~5 min).</b> Cumprimentar a banca, apresentar o grupo e o nome do projeto. "Hoje vamos apresentar o OrçaPro, um sistema que resolve um problema real de um mercado de mais de 30 mil marcenarias registradas no Brasil."</div>
   </section>
 
   <!-- 2 · O PROBLEMA -->
   <section class="slide" data-block="1 · O Problema">
     <div class="reveal eyebrow">O Problema</div>
-    <h2 class="reveal title">Mais de <span class="amber">300 mil marcenarias</span> no Brasil,<br>um dos setores <span class="grad">menos digitalizados</span> do país</h2>
+    <h2 class="reveal title">Mais de <span class="amber">30 mil marcenarias registradas</span> no Brasil,<br>um dos setores <span class="grad">menos digitalizados</span> do país</h2>
     <div class="cards c3">
       <div class="reveal card"><h3>Orçamentos no papel</h3><p>O marceneiro calcula material, mão de obra e margem à mão. Quando erra, o prejuízo é dele.</p></div>
       <div class="reveal card"><h3>Dias para responder</h3><p>O cliente espera dias pelo orçamento e fecha com o concorrente mais rápido.</p></div>
@@ -415,7 +432,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step end"><span class="n">06</span><span class="t">Financeiro</span><span class="s">a receber + lucro real</span></div>
     </div>
-    <p class="reveal lead" style="margin-top:2rem">Um <b>SaaS</b>: a marcenaria assina e usa pelo navegador ou celular, sem instalar nada.</p>
+    <p class="reveal solucao-tag">Um <b>SaaS</b> completo: a marcenaria assina e usa pelo <b>navegador</b> ou pelo <b>app no celular</b> — tudo do mesmo lugar.</p>
     <div class="pnote">Frase de efeito: "O OrçaPro transforma o caderninho do marceneiro em uma operação digital completa." Reforçar o modelo SaaS.</div>
   </section>
 
@@ -428,7 +445,7 @@
           <ul class="ticks"><li>Marcenarias de pequeno e médio porte</li><li>Marceneiros autônomos</li><li>Movelarias sob medida</li></ul>
         </div>
         <div><div class="kicker">Modelo de negócio</div>
-          <ul class="ticks"><li><b>SaaS por assinatura mensal</b></li><li>Multi-tenant: um sistema, várias marcenarias, <span>dados isolados</span></li><li>Navegador e celular (PWA, funciona como app)</li></ul>
+          <ul class="ticks"><li><b>SaaS por assinatura mensal</b></li><li>Multi-tenant: um sistema, várias marcenarias, <span>dados isolados</span></li><li>Acesso pelo navegador e por <b>app Android nativo</b></li></ul>
         </div>
       </div>
       <div class="reveal">
@@ -550,8 +567,8 @@
   <section class="slide divider" data-block="3 · Técnico">
     <div class="reveal block-num">BLOCO 03</div>
     <h1 class="reveal grad">Por Dentro da Máquina</h1>
-    <div class="reveal who-line">Arquitetura, segurança e qualidade, apresentado por <b>Victor</b></div>
-    <div class="pnote"><b>Bloco 3 · Victor (~4 min + 1 min de conclusão).</b> Parte técnica: arquitetura, segurança, qualidade. É o que os professores avaliam.</div>
+    <div class="reveal who-line">Arquitetura, segurança e qualidade, apresentado por <b>Kevin</b></div>
+    <div class="pnote"><b>Bloco 3 · Kevin (~4 min + 1 min de conclusão).</b> Parte técnica: arquitetura, segurança, qualidade. É o que os professores avaliam.</div>
   </section>
 
   <!-- 13 · ARQUITETURA -->
@@ -559,7 +576,7 @@
     <div class="reveal eyebrow">Arquitetura</div>
     <h2 class="reveal title">Uma stack de produção,<br>de ponta a ponta em <span class="grad">TypeScript</span></h2>
     <div class="reveal nodes">
-      <div class="node trigger"><div class="nt">Usuário</div><div class="ns">PWA / Navegador</div><span class="host">Cliente</span></div>
+      <div class="node trigger"><div class="nt">Usuário</div><div class="ns">App Android · Navegador</div><span class="host">Cliente</span></div>
       <div class="node-arrow">→</div>
       <div class="node proc"><div class="nt">Frontend</div><div class="ns">React 18 · Vite · TS</div><span class="host">Vercel</span></div>
       <div class="node-arrow">→</div>
@@ -646,19 +663,19 @@
     <h1 class="reveal grad">Obrigado!</h1>
     <p class="reveal lead" style="margin-top:0.8rem">Do orçamento ao contrato assinado.</p>
     <div class="reveal" style="display:flex;align-items:center;gap:2rem;margin-top:1.8rem;flex-wrap:wrap;justify-content:center">
-      <div class="qr"><svg viewBox="0 0 37 37" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#000000" d="M4 4.5h7m2 0h1m1 0h2m2 0h5m2 0h7M4 5.5h1m5 0h1m5 0h1m4 0h1m4 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h2m6 0h2m1 0h1m2 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h3m3 0h2m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h2m3 0h5m2 0h1m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h2m3 0h1m1 0h1m2 0h1m1 0h1M4 12.5h1m1 0h5m2 0h4m1 0h2m1 0h1m4 0h5M5 13.5h1m2 0h2m1 0h2m1 0h1m4 0h2m1 0h5m1 0h1m3 0h1M4 14.5h1m1 0h2m1 0h2m1 0h1m3 0h1m9 0h3M6 15.5h4m2 0h1m5 0h1m1 0h1m2 0h2m3 0h2m1 0h1M4 16.5h5m1 0h2m1 0h3m5 0h1m2 0h1m4 0h2M4 17.5h3m2 0h1m1 0h2m1 0h6m3 0h2m1 0h3m3 0h1M6 18.5h1m1 0h3m2 0h3m1 0h3m1 0h2m1 0h2m1 0h1m1 0h2M4 19.5h2m3 0h1m1 0h2m1 0h4m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1M6 20.5h1m3 0h6m2 0h4m7 0h2M4 21.5h5m3 0h3m5 0h1m1 0h3m1 0h3m1 0h1m1 0h1M4 22.5h1m1 0h1m1 0h6m5 0h1m1 0h2m1 0h2m4 0h1M4 23.5h1m2 0h2m3 0h3m1 0h1m1 0h2m3 0h1m1 0h2m1 0h1m2 0h1M4 24.5h1m4 0h3m1 0h1m1 0h1m3 0h3m2 0h5m1 0h3M12 25.5h2m2 0h3m1 0h1m1 0h3m3 0h5M4 26.5h7m6 0h4m2 0h2m1 0h1m1 0h3M4 27.5h1m5 0h1m1 0h2m2 0h2m1 0h1m3 0h2m3 0h1M4 28.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h2m1 0h1m2 0h5m1 0h2M4 29.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h4m3 0h1m1 0h4M4 30.5h1m1 0h3m1 0h1m1 0h4m3 0h1m3 0h9M4 31.5h1m5 0h1m7 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1M4 32.5h7m1 0h2m2 0h2m3 0h2m3 0h2m2 0h1"/></svg></div>
+      <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h39v39H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h1m3 0h3m1 0h8m3 0h1m1 0h7M1 2.5h1m5 0h1m2 0h1m3 0h2m1 0h1m4 0h2m2 0h1m1 0h2m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m4 0h2m3 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h2m1 0h2m3 0h2m1 0h2m3 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h3m2 0h1m1 0h5m1 0h1m4 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m3 0h2m2 0h1m2 0h1m6 0h1m2 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h2m2 0h1m2 0h2m3 0h2m1 0h2m1 0h1m1 0h1M1 9.5h1m1 0h5m2 0h2m2 0h3m1 0h4m3 0h3m3 0h5M2 10.5h1m1 0h2m3 0h3m1 0h1m1 0h7m1 0h2m1 0h1m2 0h1m6 0h1M1 11.5h2m3 0h3m1 0h1m2 0h2m3 0h1m4 0h1m1 0h4m1 0h4m2 0h2M1 12.5h1m1 0h1m4 0h1m1 0h2m1 0h1m3 0h1m4 0h2m3 0h4m6 0h1M1 13.5h1m3 0h3m3 0h4m8 0h1m1 0h3m2 0h2m1 0h5M5 14.5h2m1 0h1m1 0h1m2 0h3m1 0h8m7 0h1M2 15.5h1m1 0h1m1 0h2m2 0h1m1 0h3m1 0h1m1 0h1m2 0h1m5 0h2m1 0h1m1 0h3m1 0h2M3 16.5h4m1 0h2m1 0h1m1 0h2m4 0h1m2 0h2m1 0h1m4 0h1m1 0h2M3 17.5h1m3 0h1m3 0h2m1 0h1m1 0h3m1 0h2m2 0h1m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1M1 18.5h1m2 0h1m5 0h3m2 0h2m1 0h5m1 0h1m1 0h1m2 0h1m2 0h1m2 0h2M3 19.5h1m1 0h3m1 0h3m1 0h1m2 0h3m2 0h1m5 0h2m3 0h1m1 0h1m1 0h2M2 20.5h2m4 0h2m1 0h1m1 0h4m5 0h1m4 0h1m1 0h4m4 0h1M1 21.5h2m1 0h1m2 0h1m1 0h2m2 0h1m1 0h4m4 0h4m3 0h2m1 0h3M2 22.5h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m1 0h1m2 0h2m3 0h1m1 0h1M2 23.5h1m1 0h1m1 0h4m1 0h4m1 0h1m2 0h1m3 0h1m1 0h10m1 0h2M1 24.5h1m1 0h1m2 0h1m4 0h1m1 0h2m1 0h1m3 0h1m1 0h3m2 0h3m1 0h3m2 0h1M5 25.5h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m4 0h1m1 0h4m1 0h2m1 0h1m1 0h2M1 26.5h1m1 0h1m2 0h1m2 0h2m2 0h2m1 0h2m2 0h3m1 0h3m2 0h1m2 0h1M1 27.5h1m2 0h7m1 0h2m1 0h1m2 0h2m1 0h2m2 0h9m2 0h2M1 28.5h1m1 0h2m1 0h1m3 0h2m3 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m4 0h2M1 29.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m2 0h10m1 0h1M9 30.5h1m2 0h2m2 0h2m1 0h3m2 0h1m4 0h1m3 0h2M1 31.5h7m3 0h1m2 0h4m1 0h1m1 0h1m1 0h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m1 0h4m1 0h1m1 0h1m2 0h5m3 0h1m1 0h1m3 0h2m1 0h1M1 33.5h1m1 0h3m1 0h1m1 0h4m3 0h1m1 0h1m1 0h1m2 0h1m2 0h8m1 0h2M1 34.5h1m1 0h3m1 0h1m1 0h3m2 0h3m2 0h3m1 0h2m2 0h2m1 0h2m1 0h2m1 0h2M1 35.5h1m1 0h3m1 0h1m1 0h2m5 0h4m2 0h2m1 0h1m1 0h3m6 0h2M1 36.5h1m5 0h1m2 0h2m1 0h2m5 0h1m1 0h2m1 0h1m1 0h1m1 0h2m2 0h1m3 0h1M1 37.5h7m1 0h2m3 0h2m2 0h1m4 0h1m2 0h2m2 0h1m2 0h1m1 0h3"/></svg></div>
       <div style="text-align:left">
-        <div class="url-pill">orca-pro-seven.vercel.app</div>
-        <p class="lead" style="font-size:0.95rem;margin-top:0.5rem">Aponte a câmera do celular<br>e teste o sistema agora</p>
+        <div class="url-pill">OrçaPro para Android</div>
+        <p class="lead" style="font-size:0.95rem;margin-top:0.5rem">Aponte a câmera do celular<br>e <b>instale o app</b> agora</p>
         <div class="demo-box">
-          <div class="demo-title">Entre e experimente com a conta de demonstração</div>
+          <div class="demo-title">Instalou? Entre com a conta de demonstração</div>
           <div class="demo-creds"><span><b>usuário</b>demo2026</span><span><b>senha</b>demo2026</span></div>
         </div>
       </div>
     </div>
     <div class="reveal authors" style="margin-top:2rem">Kevin Rhoden · Daniel Cousseau · Victor de Amorim Rodrigues · TI23</div>
     <div class="reveal" style="margin-top:1rem;font-size:1.2rem;font-weight:700">Perguntas?</div>
-    <div class="pnote">Encerramento: agradecer a banca, se colocar à disposição. Combinar antes quem responde o quê: comercial com Kevin, produto com Daniel, técnico com Victor.</div>
+    <div class="pnote">Encerramento: agradecer a banca, se colocar à disposição. Combinar antes quem responde o quê: comercial com Victor, produto com Daniel, técnico com Kevin.</div>
   </section>
 
 </div>
