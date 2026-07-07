@@ -1,7 +1,40 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
-import { User } from "../types";
+import { AuditLog, User } from "../types";
+
+type OpcaoCustomizada = { id: number; nome: string };
+type OpcoesPorTipo = {
+  ambiente: OpcaoCustomizada[];
+  pagamento: OpcaoCustomizada[];
+  material_categoria: OpcaoCustomizada[];
+  material_unidade: OpcaoCustomizada[];
+};
+
+const LABELS_TIPO: Record<keyof OpcoesPorTipo, string> = {
+  ambiente: "Ambientes",
+  pagamento: "Formas de Pagamento",
+  material_categoria: "Categorias de Material",
+  material_unidade: "Unidades de Medida",
+};
+
+const CORES_ACAO: Record<string, { bg: string; color: string }> = {
+  criou: { bg: "#dcfce7", color: "#166534" },
+  atualizou: { bg: "#dbeafe", color: "#1e40af" },
+  "atualizou status": { bg: "#e0e7ff", color: "#3730a3" },
+  excluiu: { bg: "#fee2e2", color: "#991b1b" },
+  login: { bg: "#fef9c3", color: "#854d0e" },
+};
+
+function formatarData(iso: string): string {
+  return new Date(iso).toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 const comprimirLogo = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -71,6 +104,60 @@ export default function Perfil() {
   const [novaSenha, setNovaSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [salvandoSenha, setSalvandoSenha] = useState(false);
+  const [logs, setLogs] = useState<AuditLog[]>([]);
+  const [carregandoLogs, setCarregandoLogs] = useState(false);
+  const [logsAbertos, setLogsAbertos] = useState(false);
+  const [opcoesAbertas, setOpcoesAbertas] = useState(false);
+  const [opcoes, setOpcoes] = useState<OpcoesPorTipo>({
+    ambiente: [],
+    pagamento: [],
+    material_categoria: [],
+    material_unidade: [],
+  });
+
+  useEffect(() => {
+    setCarregandoLogs(true);
+    api
+      .get("/audit-log")
+      .then(({ data }) => setLogs(data))
+      .catch(() => {})
+      .finally(() => setCarregandoLogs(false));
+  }, []);
+
+  useEffect(() => {
+    const tipos = Object.keys(LABELS_TIPO) as (keyof OpcoesPorTipo)[];
+    Promise.all(
+      tipos.map((tipo) =>
+        api
+          .get(`/opcoes-customizadas?tipo=${tipo}`)
+          .then((r) => ({ tipo, dados: r.data as OpcaoCustomizada[] }))
+          .catch(() => ({ tipo, dados: [] })),
+      ),
+    ).then((resultados) => {
+      const novo = { ...opcoes };
+      resultados.forEach(({ tipo, dados }) => {
+        novo[tipo] = dados;
+      });
+      setOpcoes(novo);
+    });
+  }, []);
+
+  const handleExcluirOpcao = async (
+    tipo: keyof OpcoesPorTipo,
+    id: number,
+    nome: string,
+  ) => {
+    try {
+      await api.delete(`/opcoes-customizadas/${id}`);
+      setOpcoes((prev) => ({
+        ...prev,
+        [tipo]: prev[tipo].filter((o) => o.id !== id),
+      }));
+      toast.success(`"${nome}" removido.`);
+    } catch {
+      toast.error("Erro ao remover opção.");
+    }
+  };
 
   useEffect(() => {
     api
@@ -650,6 +737,262 @@ export default function Perfil() {
         </div>
       </div>
 
+      <div className="cliente-card" style={{ marginTop: "24px" }}>
+        <button
+          type="button"
+          onClick={() => setOpcoesAbertas((v) => !v)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            background: "none",
+            border: "none",
+            padding: "0",
+            cursor: "pointer",
+            color: "var(--text-main)",
+          }}
+        >
+          <h2 style={{ fontSize: "1.2rem", margin: 0 }}>
+            Opções Personalizadas
+          </h2>
+          <span
+            style={{
+              fontSize: "1.2rem",
+              color: "var(--text-soft)",
+              transition: "transform 0.2s",
+              transform: opcoesAbertas ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          >
+            ▾
+          </span>
+        </button>
+
+        {opcoesAbertas && (
+          <div style={{ marginTop: "20px" }}>
+            <p
+              style={{
+                fontSize: "0.85rem",
+                color: "var(--text-soft)",
+                marginBottom: "20px",
+              }}
+            >
+              Opções que você salvou como fixas nos formulários de orçamento e
+              materiais. Clique no{" "}
+              <strong style={{ color: "var(--danger, #dc2626)" }}>×</strong>{" "}
+              para remover.
+            </p>
+            {(Object.keys(LABELS_TIPO) as (keyof OpcoesPorTipo)[]).map(
+              (tipo) => (
+                <div key={tipo} style={{ marginBottom: "20px" }}>
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      fontSize: "0.9rem",
+                      marginBottom: "8px",
+                      color: "var(--text-main)",
+                    }}
+                  >
+                    {LABELS_TIPO[tipo]}
+                  </p>
+                  {opcoes[tipo].length === 0 ? (
+                    <p
+                      style={{
+                        fontSize: "0.85rem",
+                        color: "var(--text-soft)",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      Nenhuma opção salva.
+                    </p>
+                  ) : (
+                    <div
+                      style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
+                    >
+                      {opcoes[tipo].map((opcao) => (
+                        <span
+                          key={opcao.id}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            background: "var(--panel-soft)",
+                            border: "1px solid var(--border)",
+                            borderRadius: "999px",
+                            padding: "4px 12px",
+                            fontSize: "0.85rem",
+                            color: "var(--text-main)",
+                          }}
+                        >
+                          {opcao.nome}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleExcluirOpcao(tipo, opcao.id, opcao.nome)
+                            }
+                            title={`Remover "${opcao.nome}"`}
+                            style={{
+                              background: "none",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: "0",
+                              lineHeight: 1,
+                              fontSize: "1rem",
+                              color: "var(--text-soft)",
+                              display: "flex",
+                              alignItems: "center",
+                              // Evita a regra global button{width:100%} do mobile
+                              width: "auto",
+                              minHeight: "auto",
+                              flexShrink: 0,
+                            }}
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ),
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="cliente-card" style={{ marginTop: "24px" }}>
+        <button
+          type="button"
+          onClick={() => setLogsAbertos((v) => !v)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            background: "none",
+            border: "none",
+            padding: "0",
+            cursor: "pointer",
+            color: "var(--text-main)",
+          }}
+        >
+          <h2 style={{ fontSize: "1.2rem", margin: 0 }}>
+            Histórico de Atividade
+          </h2>
+          <span
+            style={{
+              fontSize: "1.2rem",
+              color: "var(--text-soft)",
+              transition: "transform 0.2s",
+              transform: logsAbertos ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          >
+            ▾
+          </span>
+        </button>
+
+        {logsAbertos && (
+          <div style={{ marginTop: "20px" }}>
+            {carregandoLogs ? (
+              <p
+                style={{
+                  color: "var(--text-soft)",
+                  textAlign: "center",
+                  padding: "20px",
+                }}
+              >
+                Carregando...
+              </p>
+            ) : logs.length === 0 ? (
+              <p
+                style={{
+                  color: "var(--text-soft)",
+                  textAlign: "center",
+                  padding: "20px",
+                }}
+              >
+                Nenhuma atividade registrada ainda.
+              </p>
+            ) : (
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+              >
+                {logs.map((log) => {
+                  const estilo = CORES_ACAO[log.acao] || {
+                    bg: "var(--panel-soft)",
+                    color: "var(--text-main)",
+                  };
+                  return (
+                    <div
+                      key={log.id}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        // Quebra linha no celular em vez de estourar a largura
+                        flexWrap: "wrap",
+                        gap: "8px 12px",
+                        padding: "10px 14px",
+                        borderRadius: "8px",
+                        background: "var(--panel-soft)",
+                        border: "1px solid var(--border)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          padding: "3px 10px",
+                          borderRadius: "999px",
+                          fontSize: "0.75rem",
+                          fontWeight: "bold",
+                          background: estilo.bg,
+                          color: estilo.color,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {log.acao}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          color: "var(--text-main)",
+                          fontSize: "0.9rem",
+                        }}
+                      >
+                        {log.recurso}
+                      </span>
+                      {log.detalhe && (
+                        <span
+                          style={{
+                            color: "var(--text-soft)",
+                            fontSize: "0.85rem",
+                            flex: 1,
+                            // No celular, se não couber, desce pra linha de baixo
+                            minWidth: "140px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {log.detalhe}
+                        </span>
+                      )}
+                      <span
+                        style={{
+                          color: "var(--text-soft)",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          marginLeft: "auto",
+                        }}
+                      >
+                        {formatarData(log.criadoEm)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
