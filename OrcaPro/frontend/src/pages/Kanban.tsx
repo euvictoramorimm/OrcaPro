@@ -34,6 +34,9 @@ export default function Kanban() {
   const [termoBusca, setTermoBusca] = useState("");
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [colunaAlvo, setColunaAlvo] = useState<string | null>(null);
+  const [contratoParaEnviar, setContratoParaEnviar] =
+    useState<OrcamentoComContrato | null>(null);
+  const [enviandoTelegram, setEnviandoTelegram] = useState(false);
   const dragOver = useRef<string | null>(null);
 
   useEffect(() => {
@@ -119,7 +122,7 @@ export default function Kanban() {
   };
 
   // --- WhatsApp do contrato ---
-  const compartilharContrato = (orc: OrcamentoComContrato) => {
+  const enviarContratoWhatsApp = (orc: OrcamentoComContrato) => {
     if (!orc.contratoToken) return;
     const link = `${window.location.origin}/contrato/${orc.contratoToken}`;
     const telefone = orc.cliente?.telefone?.replace(/\D/g, "") || "";
@@ -130,6 +133,24 @@ export default function Kanban() {
       ? `https://wa.me/55${telefone}?text=${mensagem}`
       : `https://wa.me/?text=${mensagem}`;
     window.open(url, "_blank");
+    setContratoParaEnviar(null);
+  };
+
+  // --- Telegram do contrato ---
+  const enviarContratoTelegram = async (orc: OrcamentoComContrato) => {
+    setEnviandoTelegram(true);
+    try {
+      await api.post(`/orcamentos/${orc.id}/enviar-contrato-telegram`);
+      toast.success("Contrato enviado no Telegram do cliente!");
+      setContratoParaEnviar(null);
+    } catch (error) {
+      const err = error as { response?: { data?: { error?: string } } };
+      toast.error(
+        err.response?.data?.error || "Erro ao enviar o contrato pelo Telegram.",
+      );
+    } finally {
+      setEnviandoTelegram(false);
+    }
   };
 
   const orcamentosFiltrados = termoBusca
@@ -294,7 +315,7 @@ export default function Kanban() {
                           : "Contrato gerado"}
                       </div>
                       <button
-                        onClick={() => compartilharContrato(orc)}
+                        onClick={() => setContratoParaEnviar(orc)}
                         style={{
                           background: "#25d366",
                           color: "#fff",
@@ -337,6 +358,51 @@ export default function Kanban() {
           );
         })}
       </div>
+
+      {contratoParaEnviar && (
+        <div
+          className="modal-overlay"
+          onClick={() => !enviandoTelegram && setContratoParaEnviar(null)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Compartilhar Contrato</h3>
+            <p>
+              Como você quer enviar o contrato para{" "}
+              {contratoParaEnviar.cliente?.nome?.trim() || "o cliente"}?
+            </p>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn-cancel"
+                disabled={enviandoTelegram}
+                onClick={() => setContratoParaEnviar(null)}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => enviarContratoWhatsApp(contratoParaEnviar)}
+                disabled={enviandoTelegram}
+                style={{ background: "#25d366", color: "#fff" }}
+              >
+                WhatsApp
+              </button>
+              <button
+                type="button"
+                onClick={() => enviarContratoTelegram(contratoParaEnviar)}
+                disabled={enviandoTelegram}
+                style={{
+                  background: "#229ED9",
+                  color: "#fff",
+                  opacity: enviandoTelegram ? 0.7 : 1,
+                }}
+              >
+                {enviandoTelegram ? "Enviando..." : "Telegram"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
