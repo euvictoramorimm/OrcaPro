@@ -407,6 +407,7 @@
   <section class="slide" data-block="1 · O Problema">
     <div class="reveal eyebrow">O Problema</div>
     <h2 class="reveal title">Mais de <span class="amber">30 mil marcenarias registradas</span> no Brasil,<br>um dos setores <span class="grad">menos digitalizados</span> do país</h2>
+    <div class="reveal" style="font-size:0.9rem;color:var(--muted);opacity:0.85;margin-top:0.5rem">Fontes: Econodata (empresas de marcenaria ativas com CNPJ) &middot; Talenses Group/Digital House &mdash; ind&uacute;stria &eacute; o setor de menor maturidade digital &middot; IBGE</div>
     <div class="cards c3">
       <div class="reveal card"><h3>Orçamentos no papel</h3><p>O marceneiro calcula material, mão de obra e margem à mão. Quando erra, o prejuízo é dele.</p></div>
       <div class="reveal card"><h3>Dias para responder</h3><p>O cliente espera dias pelo orçamento e fecha com o concorrente mais rápido.</p></div>
@@ -432,7 +433,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-step end"><span class="n">06</span><span class="t">Financeiro</span><span class="s">a receber + lucro real</span></div>
     </div>
-    <p class="reveal solucao-tag">Um <b>SaaS</b> completo: a marcenaria assina e usa pelo <b>navegador</b> ou pelo <b>app no celular</b> — tudo do mesmo lugar.</p>
+    <p class="reveal solucao-tag">Um <b>SaaS</b> completo: a marcenaria assina e usa pelo <b>navegador</b> ou pelo <b>app no celular</b>, tudo do mesmo lugar.</p>
     <div class="pnote">Frase de efeito: "O OrçaPro transforma o caderninho do marceneiro em uma operação digital completa." Reforçar o modelo SaaS.</div>
   </section>
 
@@ -627,7 +628,7 @@
           <div class="metric"><div class="v amber">40+</div><div class="l">endpoints na API</div></div>
           <div class="metric"><div class="v">7</div><div class="l">controllers</div></div>
         </div>
-        <ul class="ticks" style="margin-top:1rem"><li>Testes automatizados (Jest + Supertest) <span>contra banco real</span></li><li>TypeScript estrito no front e no back</li><li>CI/CD: cada push valida tipos e testes</li></ul>
+        <ul class="ticks" style="margin-top:1rem"><li>Testes automatizados (Jest + Supertest) <span>contra banco real</span></li><li>TypeScript estrito no front e no back</li><li><b>CI/CD</b> no GitHub Actions: cada Pull Request roda <span>tipos + testes + build</span></li><li>Revisão de código por <b>IA</b> em todo PR <span>e deploy automático após o merge</span></li></ul>
       </div>
       <div class="reveal">
         <div class="kicker">Desafios reais que resolvemos</div>
@@ -639,7 +640,7 @@
         </ul>
       </div>
     </div>
-    <div class="pnote">Este slide mostra maturidade: problemas que só aparecem em produção de verdade. A banca valoriza muito "o que deu errado e como resolvemos".</div>
+    <div class="pnote">Este slide mostra maturidade: problemas que só aparecem em produção de verdade. A banca valoriza muito "o que deu errado e como resolvemos". Destacar o CI/CD: "nenhuma linha entra no sistema sem passar por um pipeline — o GitHub roda os testes e a checagem de tipos em todo Pull Request, uma IA revisa o código procurando falhas de segurança, e só depois do merge o deploy acontece sozinho".</div>
   </section>
 
   <!-- 16 · PRÓXIMOS PASSOS -->
@@ -655,7 +656,20 @@
     <div class="pnote">O OrçaPro já está em produção, com diferenciais que os concorrentes genéricos não têm: o plano de corte com nesting economiza material, roda em qualquer plataforma e já nasce seguro e em conformidade com a LGPD.</div>
   </section>
 
-  <!-- 17 · OBRIGADO -->
+  <!-- 17 · PRÓXIMO SEMESTRE -->
+  <section class="slide center" data-block="3 · Próximo semestre">
+    <div class="reveal eyebrow">E não paramos por aqui</div>
+    <h2 class="reveal title">Melhorias para o<br><span class="grad">próximo semestre</span></h2>
+    <div class="cards c2" style="max-width:1060px;text-align:left">
+      <div class="reveal card"><h3>Assinatura digital oficial</h3><p>Integração com DocuSign: contratos assinados com validade jurídica plena, direto pelo link.</p></div>
+      <div class="reveal card"><h3>WhatsApp integrado</h3><p>EvolutionAPI no lugar do Telegram: proposta, PDF e notificações no WhatsApp do cliente.</p></div>
+      <div class="reveal card"><h3>Fluxo de caixa</h3><p>Projeção de 30, 60 e 90 dias para o marceneiro enxergar o futuro financeiro da oficina.</p></div>
+      <div class="reveal card"><h3>App na Play Store</h3><p>Assinar e publicar o app Android na loja oficial, com atualização automática para todos.</p></div>
+    </div>
+    <div class="pnote">Mostrar que o projeto continua evoluindo: assinatura com validade jurídica (DocuSign), WhatsApp no lugar do Telegram (EvolutionAPI), projeção de fluxo de caixa e publicação na Play Store. Passa a mensagem de que o OrçaPro é um produto vivo, não um trabalho que termina na banca.</div>
+  </section>
+
+  <!-- 18 · OBRIGADO -->
   <section class="slide center" data-block="Encerramento">
     <div class="reveal logo-card" style="margin-bottom:1.4rem">
       
