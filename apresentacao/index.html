@@ -187,6 +187,8 @@
     border-radius: 2px;
   }
   ul.ticks li span { color: var(--muted); }
+  .bigticks ul.ticks li { font-size: clamp(1.5rem, 2.1vw, 2rem); padding-block: 0.9rem; }
+  .bigticks .kicker { font-size: clamp(1.4rem, 1.9vw, 1.8rem); }
 
   /* ---- Step flow (jornada do primeiro contato ao dinheiro) ---- */
   .flow { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: clamp(0.5rem, 0.8vw, 0.9rem); margin-top: clamp(2.4rem, 6vh, 4.2rem); width: 100%; }
@@ -392,6 +394,7 @@
 
   <!-- 1 · CAPA -->
   <section class="slide center" data-block="Abertura">
+    <img class="reveal" alt="Colégio Sinodal Progresso — Unidade Montenegro" style="position:absolute;top:clamp(1.2rem,3vh,2.2rem);right:clamp(1.4rem,3vw,2.6rem);width:clamp(130px,13vw,190px);border-radius:22px;box-shadow:0 14px 34px rgba(0,0,0,0.45)" src="data:image/jpeg;base64,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">
     <div class="reveal logo-card" style="margin-bottom:2.4rem">
       
     </div>
@@ -413,7 +416,8 @@
       <div class="reveal card"><h3>Dias para responder</h3><p>O cliente espera dias pelo orçamento e fecha com o concorrente mais rápido.</p></div>
       <div class="reveal card"><h3>Falta de controle</h3><p>Sem saber quais projetos dão lucro, quanto tem a receber, nem onde perde cliente.</p></div>
     </div>
-    <div class="pnote">Contar uma história: "Imaginem o seu Zé, marceneiro há 20 anos. Faz móveis incríveis, mas perde clientes porque demora 3 dias para entregar um orçamento feito à mão, e às vezes erra a conta e trabalha no prejuízo." O setor moveleiro fatura bilhões, mas é um dos menos digitalizados.</div>
+    <div class="reveal" style="text-align:center;margin-top:clamp(1.2rem,3vh,2rem);font-size:clamp(1.5rem,2.6vw,2.3rem);font-weight:800"><span class="grad">Como tirar isso do papel?</span></div>
+    <div class="pnote">Contar uma história: "Imaginem o seu Zé, marceneiro há 20 anos. Faz móveis incríveis, mas perde clientes porque demora 3 dias para entregar um orçamento feito à mão, e às vezes erra a conta e trabalha no prejuízo." O setor moveleiro fatura bilhões, mas é um dos menos digitalizados. Fechar com a pergunta-gancho: "Como tirar isso do papel?" — a resposta vem nos próximos slides.</div>
   </section>
 
   <!-- 3 · A SOLUÇÃO -->
@@ -437,30 +441,49 @@
     <div class="pnote">Frase de efeito: "O OrçaPro transforma o caderninho do marceneiro em uma operação digital completa." Reforçar o modelo SaaS.</div>
   </section>
 
-  <!-- 4 · MERCADO -->
-  <section class="slide" data-block="1 · Mercado">
-    <div class="reveal eyebrow">Para quem? O mercado</div>
+  <!-- 4 · OBJETIVOS -->
+  <section class="slide" data-block="1 · Objetivos">
+    <div class="reveal eyebrow">Objetivos</div>
+    <h2 class="reveal title">Desenvolver uma <span class="grad">plataforma web</span> para elaboração<br>e gestão de orçamentos de <span class="amber">móveis sob medida</span></h2>
+    <p class="reveal solucao-tag">Objetivo geral: voltado a <b>marceneiros autônomos</b> e <b>pequenas marcenarias</b>.</p>
+    <div class="reveal kicker" style="margin-top:1.1rem">Objetivos específicos</div>
+    <div class="cards c3">
+      <div class="reveal card"><h3>a · Entender a dor</h3><p>Identificar as principais dificuldades do marceneiro na precificação e na elaboração de orçamentos.</p></div>
+      <div class="reveal card"><h3>b · Automatizar o orçamento</h3><p>Cadastro de clientes e materiais com cálculo de custos, margem de lucro e proposta em PDF.</p></div>
+      <div class="reveal card"><h3>c · Dar visão do fluxo</h3><p>Dashboard com quadro Kanban para acompanhar visualmente cada pedido.</p></div>
+    </div>
+    <div class="pnote">Ponte com o relatório: um objetivo geral (a plataforma) e três específicos — entender a dor, automatizar o orçamento com PDF e acompanhar o fluxo no Kanban. Cada objetivo vira funcionalidade concreta que o Daniel mostra no Bloco 2.</div>
+  </section>
+
+  <!-- 5 · METODOLOGIA -->
+  <section class="slide bigticks" data-block="1 · Metodologia">
+    <div class="reveal eyebrow">Metodologia</div>
     <div class="two">
       <div class="reveal stack">
-        <div><div class="kicker">Público-alvo</div>
-          <ul class="ticks"><li>Marcenarias de pequeno e médio porte</li><li>Marceneiros autônomos</li><li>Movelarias sob medida</li></ul>
-        </div>
-        <div><div class="kicker">Modelo de negócio</div>
-          <ul class="ticks"><li><b>SaaS por assinatura mensal</b></li><li>Multi-tenant: um sistema, várias marcenarias, <span>dados isolados</span></li><li>Acesso pelo navegador e por <b>app Android nativo</b></li></ul>
+        <div><div class="kicker">Como pesquisamos?</div>
+          <ul class="ticks">
+            <li><b>Pesquisa aplicada</b> <span>o resultado é um produto funcional, não só teoria</span></li>
+            <li>Abordagem <b>qualitativa</b> <span>entender a rotina e as frustrações do marceneiro</span></li>
+            <li>Levantamento bibliográfico <span>arquitetura de software, segurança web e modelo SaaS</span></li>
+            <li><b>Estudo de caso real</b> <span>protótipo validado com profissionais do setor</span></li>
+          </ul>
         </div>
       </div>
-      <div class="reveal">
-        <div class="kicker">Diferenciais</div>
-        <div class="cmp">
-          <div class="cmp-col"><div class="cmp-head">Concorrentes</div><div class="cmp-row">Genéricos (qualquer setor)</div><div class="cmp-row">Só orçamento</div><div class="cmp-row">Caros e complexos</div></div>
-          <div class="cmp-col win"><div class="cmp-head">OrçaPro</div><div class="cmp-row">Feito <b>para marcenaria</b></div><div class="cmp-row">Orçamento, contrato, produção e financeiro</div><div class="cmp-row">Simples, em português, acessível</div></div>
+      <div class="reveal stack">
+        <div><div class="kicker">Como construímos?</div>
+          <ul class="ticks">
+            <li>Gestão visual <b>Kanban</b> no Trello</li>
+            <li>Frontend <b>React + Vite</b> <span>telas rápidas, responsivas e fáceis de navegar</span></li>
+            <li>Backend <b>Node.js + Prisma</b> <span>lógica de servidor, cálculos e banco de dados</span></li>
+            <li><b>SaaS multi-tenant</b> <span>dados financeiros isolados por marcenaria</span></li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="pnote">Fecha o Bloco 1. Transição: "E como isso funciona na prática? O Daniel vai mostrar o sistema para vocês."</div>
+    <div class="pnote">Resumo do capítulo de metodologia do relatório: pesquisa aplicada com abordagem qualitativa; bibliografia + estudo de caso com marceneiros reais validando o protótipo; e a execução com Kanban no Trello, React/Vite no front, Node/Prisma no back e arquitetura SaaS multi-tenant. Fecha o Bloco 1. Transição: "E como isso funciona na prática? O Daniel vai mostrar o sistema para vocês."</div>
   </section>
 
-  <!-- 5 · DIVISOR PRODUTO -->
+  <!-- 6 · DIVISOR PRODUTO -->
   <section class="slide divider" data-block="2 · Produto">
     <div class="reveal block-num">BLOCO 02</div>
     <h1 class="reveal grad">O Produto em Ação</h1>
@@ -468,7 +491,7 @@
     <div class="pnote"><b>Bloco 2 · Daniel (~5 min).</b> Tour pelas telas. Os placeholders viram os prints reais do sistema.</div>
   </section>
 
-  <!-- 6 · DASHBOARD -->
+  <!-- 7 · DASHBOARD -->
   <section class="slide shotslide" data-block="2 · Dashboard">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -484,7 +507,7 @@
     <div class="pnote">"Assim que o marceneiro faz login, ele vê a saúde do negócio em uma tela."</div>
   </section>
 
-  <!-- 7 · ORÇAMENTO -->
+  <!-- 8 · ORÇAMENTO -->
   <section class="slide shotslide" data-block="2 · Orçamento">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -500,7 +523,7 @@
     <div class="pnote">Ponto comercial forte: "o sistema garante que o marceneiro nunca mais venda no prejuízo, porque a margem está embutida no cálculo".</div>
   </section>
 
-  <!-- 8 · PROPOSTA -->
+  <!-- 9 · PROPOSTA -->
   <section class="slide shotslide" data-block="2 · Proposta">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -516,7 +539,7 @@
     <div class="pnote">Mostrar antes/depois se possível: orçamento à mão vs PDF do OrçaPro.</div>
   </section>
 
-  <!-- 9 · CONTRATO -->
+  <!-- 10 · CONTRATO -->
   <section class="slide shotslide" data-block="2 · Contrato">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -532,7 +555,7 @@
     <div class="pnote">Reforçar segurança do link único e a economia de tempo do marceneiro.</div>
   </section>
 
-  <!-- 10 · KANBAN -->
+  <!-- 11 · KANBAN -->
   <section class="slide shotslide" data-block="2 · Kanban">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -548,7 +571,7 @@
     <div class="pnote">Mencionar drag-and-drop e a notificação no Telegram quando um projeto muda de etapa.</div>
   </section>
 
-  <!-- 11 · FINANCEIRO -->
+  <!-- 12 · FINANCEIRO -->
   <section class="slide shotslide" data-block="2 · Financeiro">
     <div class="shotwrap">
       <div class="shothead reveal">
@@ -564,7 +587,7 @@
     <div class="pnote">Fecha o Bloco 2. Transição: "Tudo isso roda em uma arquitetura profissional, em produção. O Victor vai mostrar como construímos."</div>
   </section>
 
-  <!-- 12 · DIVISOR TÉCNICO -->
+  <!-- 13 · DIVISOR TÉCNICO -->
   <section class="slide divider" data-block="3 · Técnico">
     <div class="reveal block-num">BLOCO 03</div>
     <h1 class="reveal grad">Por Dentro da Máquina</h1>
@@ -572,7 +595,7 @@
     <div class="pnote"><b>Bloco 3 · Kevin (~4 min + 1 min de conclusão).</b> Parte técnica: arquitetura, segurança, qualidade. É o que os professores avaliam.</div>
   </section>
 
-  <!-- 13 · ARQUITETURA -->
+  <!-- 14 · ARQUITETURA -->
   <section class="slide" data-block="3 · Arquitetura">
     <div class="reveal eyebrow">Arquitetura</div>
     <h2 class="reveal title">Uma stack de produção,<br>de ponta a ponta em <span class="grad">TypeScript</span></h2>
@@ -589,7 +612,7 @@
     <div class="pnote">Explicar em 30s: "O usuário acessa pelo navegador, o frontend em React conversa com nossa API em Node.js, e os dados ficam em um PostgreSQL na nuvem. Tudo tipado com TypeScript de ponta a ponta."</div>
   </section>
 
-  <!-- 14 · SEGURANÇA / MULTI-TENANT -->
+  <!-- 15 · SEGURANÇA / MULTI-TENANT -->
   <section class="slide" data-block="3 · Segurança">
     <div class="reveal eyebrow">Segurança em primeiro lugar</div>
     <div class="tenant">
@@ -617,7 +640,7 @@
     <div class="pnote">Ponto forte para professores: "escrevemos testes que tentam acessar dados de outra marcenaria de propósito, e eles comprovam que o sistema bloqueia". A analogia do prédio: o sistema é o prédio, cada marcenaria é um apê com sua chave (o userId), e o porteiro (validação cross-tenant) barra quem tenta entrar no apê errado.</div>
   </section>
 
-  <!-- 15 · QUALIDADE E DESAFIOS -->
+  <!-- 16 · QUALIDADE E DESAFIOS -->
   <section class="slide" data-block="3 · Qualidade">
     <div class="reveal eyebrow">Qualidade e desafios superados</div>
     <div class="two">
@@ -643,7 +666,7 @@
     <div class="pnote">Este slide mostra maturidade: problemas que só aparecem em produção de verdade. A banca valoriza muito "o que deu errado e como resolvemos". Destacar o CI/CD: "nenhuma linha entra no sistema sem passar por um pipeline — o GitHub roda os testes e a checagem de tipos em todo Pull Request, uma IA revisa o código procurando falhas de segurança, e só depois do merge o deploy acontece sozinho".</div>
   </section>
 
-  <!-- 16 · PRÓXIMOS PASSOS -->
+  <!-- 17 · PRÓXIMOS PASSOS -->
   <section class="slide center" data-block="3 · Destaques">
     <div class="reveal eyebrow">O que já entregamos</div>
     <h2 class="reveal title">Já em produção,<br>com <span class="grad">diferenciais de verdade</span></h2>
@@ -656,7 +679,7 @@
     <div class="pnote">O OrçaPro já está em produção, com diferenciais que os concorrentes genéricos não têm: o plano de corte com nesting economiza material, roda em qualquer plataforma e já nasce seguro e em conformidade com a LGPD.</div>
   </section>
 
-  <!-- 17 · PRÓXIMO SEMESTRE -->
+  <!-- 18 · PRÓXIMO SEMESTRE -->
   <section class="slide center" data-block="3 · Próximo semestre">
     <div class="reveal eyebrow">E não paramos por aqui</div>
     <h2 class="reveal title">Melhorias para o<br><span class="grad">próximo semestre</span></h2>
@@ -669,7 +692,7 @@
     <div class="pnote">Mostrar que o projeto continua evoluindo: assinatura com validade jurídica (DocuSign), WhatsApp no lugar do Telegram (EvolutionAPI), projeção de fluxo de caixa e publicação na Play Store. Passa a mensagem de que o OrçaPro é um produto vivo, não um trabalho que termina na banca.</div>
   </section>
 
-  <!-- 18 · OBRIGADO -->
+  <!-- 19 · OBRIGADO -->
   <section class="slide center" data-block="Encerramento">
     <div class="reveal logo-card" style="margin-bottom:1.4rem">
       
