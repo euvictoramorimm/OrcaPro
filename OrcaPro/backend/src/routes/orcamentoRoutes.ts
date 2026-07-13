@@ -28,5 +28,9 @@ router.post(
   express.raw({ type: "application/pdf", limit: "15mb" }),
   OrcamentoController.enviarPdfTelegram,
 );
+router.post(
+  "/:id/enviar-contrato-telegram",
+  OrcamentoController.enviarContratoTelegram,
+);
 
 export default router;

@@ -9,6 +9,7 @@ import { registrar } from "../services/audit";
 import {
   notificarMudancaStatus,
   enviarDocumento,
+  enviarMensagem,
   escaparMarkdown,
 } from "../services/telegram";
 
@@ -704,6 +705,79 @@ export default {
     } catch (error) {
       console.error("Erro ao enviar PDF pelo Telegram:", error);
       res.status(500).json({ error: "Erro ao enviar o PDF pelo Telegram." });
+    }
+  },
+
+  async enviarContratoTelegram(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+
+      const [orcamento, usuario] = await Promise.all([
+        prisma.orcamento.findFirst({
+          where: { id: Number(id), userId: req.userId },
+          include: {
+            cliente: { select: { nome: true, telegramChatId: true } },
+          },
+        }),
+        prisma.user.findUnique({
+          where: { id: req.userId },
+          select: { nomeMarcenaria: true },
+        }),
+      ]);
+
+      if (!orcamento) {
+        res.status(404).json({ error: "Orçamento não encontrado." });
+        return;
+      }
+      if (!orcamento.contratoToken) {
+        res.status(400).json({
+          error: "Gere o contrato antes de enviá-lo ao cliente.",
+        });
+        return;
+      }
+      if (!orcamento.cliente?.telegramChatId) {
+        res.status(400).json({
+          error:
+            "Este cliente ainda não conectou o Telegram. Conecte na tela de Clientes.",
+        });
+        return;
+      }
+
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      const linkContrato = `${frontendUrl}/contrato/${orcamento.contratoToken}`;
+
+      const nomeCliente = escaparMarkdown(orcamento.cliente.nome.trim());
+      const tituloProjeto = escaparMarkdown(orcamento.titulo.trim());
+      const identificacao = usuario?.nomeMarcenaria
+        ? `da *${escaparMarkdown(usuario.nomeMarcenaria)}*`
+        : "da Marcenaria";
+      const mensagem = `📝 Olá, *${nomeCliente}*!\n\nAqui é ${identificacao}. Seu projeto *${tituloProjeto}* foi aprovado!\n\nSegue o link do contrato para você revisar e confirmar online:\n${linkContrato}\n\nQualquer dúvida, estou à disposição!`;
+
+      const enviado = await enviarMensagem(
+        orcamento.cliente.telegramChatId,
+        mensagem,
+      );
+      if (!enviado) {
+        res.status(502).json({
+          error: "O Telegram não aceitou o envio. Tente novamente.",
+        });
+        return;
+      }
+
+      await registrar(
+        req.userId!,
+        "enviou contrato por Telegram",
+        "Orçamento",
+        orcamento.id,
+        orcamento.titulo,
+      );
+
+      res.json({ message: "Contrato enviado no Telegram do cliente." });
+    } catch (error) {
+      console.error("Erro ao enviar contrato pelo Telegram:", error);
+      res
+        .status(500)
+        .json({ error: "Erro ao enviar o contrato pelo Telegram." });
     }
   },
 

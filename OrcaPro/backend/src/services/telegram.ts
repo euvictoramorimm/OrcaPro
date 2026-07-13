@@ -28,9 +28,12 @@ interface TelegramUpdate {
   mensagem: string;
 }
 
-async function enviarMensagem(chatId: string, texto: string): Promise<void> {
-  if (!process.env.TELEGRAM_BOT_TOKEN) return;
-  await fetch(`${TELEGRAM_API}/sendMessage`, {
+export async function enviarMensagem(
+  chatId: string,
+  texto: string,
+): Promise<boolean> {
+  if (!process.env.TELEGRAM_BOT_TOKEN) return false;
+  const res = await fetch(`${TELEGRAM_API}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -39,6 +42,11 @@ async function enviarMensagem(chatId: string, texto: string): Promise<void> {
       parse_mode: "Markdown",
     }),
   });
+  if (!res.ok) {
+    const erro = await res.text();
+    console.error("Erro do Telegram ao enviar mensagem:", erro);
+  }
+  return res.ok;
 }
 
 export async function notificarMudancaStatus(
